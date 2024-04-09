@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class RegistroUsuarios {
     private ArrayList<Usuario> usuarios;
@@ -8,12 +9,23 @@ public class RegistroUsuarios {
         this.usuarios = new ArrayList<>();
     }
     public void agregarUsuario(Usuario usuario){
-        //Buscar que exista el usuario si no existe se agrega en registro
+        boolean existe = false;
+        for (Usuario value : usuarios) {
+            if (Objects.equals(value.getNombre(), usuario.getNombre())) {
+                existe = true;
+            }
+        }
+        if(!existe) {
+            this.usuarios.add(usuario);
+        }
     }
     public Usuario buscarUsuario(String nombre){
         Usuario usuario = null;
-        // Busca el usuario en el array y devuelve lo encontrado
-        // si no lo encuentra no cambia nada
+        for (Usuario value : usuarios) {
+            if (Objects.equals(value.getNombre(), nombre)) {
+                usuario = value;
+            }
+        }
         return usuario;
     }
 }

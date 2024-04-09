@@ -1,6 +1,7 @@
 import Ejercicios.Ejercicio;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Usuario {
     private String nombre;
@@ -9,23 +10,48 @@ public class Usuario {
     private Nivel nivel;
     private ArrayList<Ejercicio> ejerciciosRelacionados;
 
-    public Usuario(String nombre, int edad, double peso, Nivel nivel) {
-        //Hacer la correspondiente exception
+    public Usuario(String nombre, int edad, double peso, Nivel nivel){
         this.nombre = nombre;
         this.edad = edad;
         this.peso = peso;
         this.nivel = nivel;
+        this.ejerciciosRelacionados = new ArrayList<>();
     }
-    public void agragarEjercicioRealizado(Ejercicio ejercicio){
-        // Si no está añadido lo añade en la posición última más una
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public void agregarEjercicioRealizado(Ejercicio ejercicio){
+        boolean existe = false;
+        for (Ejercicio value : ejerciciosRelacionados) {
+            if (Objects.equals(value.getNombre(), ejercicio.getNombre())) {
+                existe = true;
+            }
+        }
+        if(!existe) {
+            this.ejerciciosRelacionados.add(ejercicio);
+        }
     }
     public int calcularPromedioIntensidad(){
-        //Busca la intensidad de los ejercicios y hace la media
-        return 0;
+        int media=0;
+
+        for(Ejercicio value: ejerciciosRelacionados){
+            media+=value.getIntensidad();
+        }
+        media=media/ejerciciosRelacionados.size();
+        return media;
     }
-    public int calcularConsumaCaloricoTotal(){
-        // Suma todas las calorías quemadas
-        return 0;
+    public int calcularConsumoCaloricoTotal(){
+        double suma=0;
+        for(Ejercicio value: ejerciciosRelacionados){
+            suma+= value.calcularCalorias(this.getPeso());
+        }
+        return (int)suma;
     }
     @Override
     public String toString(){

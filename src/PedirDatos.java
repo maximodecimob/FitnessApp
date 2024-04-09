@@ -1,15 +1,9 @@
-import Ejercicios.Cardio;
-
-import java.util.InputMismatchException;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
-        ProgramaPrincipal.menuGeneral();
-    }
-
-    private static int pedirNumeroIntMin(int min) {
+public class PedirDatos {
+    public static int pedirNumeroIntMin(int min) {
         Scanner teclado = new Scanner(System.in);
         int num=0;
         do{
@@ -26,7 +20,7 @@ public class Main {
         }while(num < min);
         return num;
     }
-    private static int pedirNumeroIntMaxMin(int min, int max) {
+    public static int pedirNumeroIntMaxMin(int min, int max) {
         Scanner teclado = new Scanner(System.in);
         int num=0;
         do{
@@ -43,7 +37,24 @@ public class Main {
         }while(num < min || num > max);
         return num;
     }
-    private static double pedirNumeroDouble(int min, int max) {
+    public static double pedirNumeroDoubleMin(int min) {
+        Scanner teclado = new Scanner(System.in);
+        double num=0;
+        do{
+            try {
+                num = teclado.nextDouble();
+                if(num < min){
+                    System.out.print("Introduzca un número mayor que " + min);
+                }
+            }catch (Exception ex){
+                System.out.print("Introduzca un número mayor que " + min);
+                String texto = teclado.nextLine();
+                num = min - 1;
+            }
+        }while(num < min);
+        return num;
+    }
+    public static double pedirNumeroDoubleMaxMin(int min, int max) {
         Scanner teclado = new Scanner(System.in);
         double num=0;
         do{
@@ -60,7 +71,7 @@ public class Main {
         }while(num < min || num > max);
         return num;
     }
-    private static String pedirPalabra(String peticion) {
+    public static String pedirPalabra(String peticion) {
         Scanner teclado = new Scanner(System.in);
         String palabra;
         do{
@@ -102,5 +113,32 @@ public class Main {
         } while (nivel == null);
 
         return nivel;
+    }
+
+    public static LocalDate pedirFecha() {
+        Scanner scanner = new Scanner(System.in);
+        LocalDate fecha = null;
+
+        do {
+            try {
+                System.out.print("Ingrese una fecha (formato AAAA-MM-DD): ");
+                String input = scanner.nextLine();
+                fecha = LocalDate.parse(input);
+
+                // Verificar si la fecha está entre el año 2000 y el día de hoy inclusive
+                LocalDate fechaMinima = LocalDate.of(2000, 1, 1);
+                LocalDate fechaActual = LocalDate.now();
+                if (fecha.isAfter(fechaMinima) || fecha.isEqual(fechaActual)) {
+                    break; // Salir del bucle si la fecha es válida
+                } else {
+                    System.out.println("Ingrese una fecha entre el año 2000 y hoy inclusive.");
+                }
+            } catch (Exception ex) {
+                System.out.println("Ingrese una fecha válida en el formato especificado.");
+            }
+        } while (true);
+
+        scanner.close();
+        return fecha;
     }
 }

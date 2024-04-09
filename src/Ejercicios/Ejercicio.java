@@ -7,6 +7,14 @@ public abstract class Ejercicio{
     protected int intensidad;
     protected LocalDate fecha;
 
+    public int getIntensidad() {
+        return intensidad;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
     public Ejercicio(String nombre, int intensidad, LocalDate fecha) {
         //Hacer la correspondiente exception
         this.nombre = nombre;
