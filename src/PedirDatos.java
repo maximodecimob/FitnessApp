@@ -98,47 +98,41 @@ public class PedirDatos {
         }
     }
     public static Nivel seleccionarNivel() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner teclado = new Scanner(System.in);
 
         System.out.println("Por favor, ingresa tu nivel (PRINCIPIANTE, INTERMEDIO o AVANZADO):");
         Nivel nivel = null;
 
         do {
             try {
-                String nivelStr = scanner.nextLine().toUpperCase();
+                String nivelStr = teclado.nextLine().toUpperCase();
                 nivel = Nivel.valueOf(nivelStr);
             } catch (Exception e) {
                 System.out.println("Nivel inválido. Por favor, ingresa uno de los siguientes niveles: PRINCIPIANTE, INTERMEDIO o AVANZADO.");
             }
         } while (nivel == null);
-
         return nivel;
     }
 
     public static LocalDate pedirFecha() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner teclado = new Scanner(System.in);
         LocalDate fecha = null;
-
+        LocalDate fechaMinima = LocalDate.of(2000, 1, 1);
+        LocalDate fechaActual = LocalDate.now();
         do {
             try {
                 System.out.print("Ingrese una fecha (formato AAAA-MM-DD): ");
-                String input = scanner.nextLine();
+                String input = teclado.nextLine();
                 fecha = LocalDate.parse(input);
-
-                // Verificar si la fecha está entre el año 2000 y el día de hoy inclusive
-                LocalDate fechaMinima = LocalDate.of(2000, 1, 1);
-                LocalDate fechaActual = LocalDate.now();
-                if (fecha.isAfter(fechaMinima) || fecha.isEqual(fechaActual)) {
-                    break; // Salir del bucle si la fecha es válida
-                } else {
+                if (!(fecha.isAfter(fechaMinima) || fecha.isEqual(fechaActual))) {
                     System.out.println("Ingrese una fecha entre el año 2000 y hoy inclusive.");
                 }
             } catch (Exception ex) {
                 System.out.println("Ingrese una fecha válida en el formato especificado.");
+                fecha = LocalDate.of(1999, 12, 20); // Establecer una fecha predeterminada
+                teclado.nextLine(); // Consumir la entrada incorrecta
             }
-        } while (true);
-
-        scanner.close();
+        } while (!(fecha.isAfter(fechaMinima) || fecha.isEqual(fechaActual)));
         return fecha;
     }
 }

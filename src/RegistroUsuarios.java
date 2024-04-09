@@ -28,4 +28,12 @@ public class RegistroUsuarios {
         }
         return usuario;
     }
+
+    public void modificar(Usuario usuario) {
+        for (int i = 0;i<usuarios.size();i++) {
+            if (Objects.equals(usuarios.get(i).getNombre(), usuario.getNombre())) {
+                usuarios.set(i, usuario);
+            }
+        }
+    }
 }

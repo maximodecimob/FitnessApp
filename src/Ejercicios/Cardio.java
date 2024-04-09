@@ -15,6 +15,9 @@ public class Cardio extends Ejercicio {
 
     @Override
     public double calcularCalorias(double peso) {
-        return 0;
+        double calorias;
+        double met = distancia * intensidad * duracion;
+        calorias = 0.0175 * peso * met;
+        return calorias;
     }
 }

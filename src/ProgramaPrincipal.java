@@ -39,6 +39,7 @@ public class ProgramaPrincipal {
                         inicio = false;
                     }else{
                         usuario = MenuUsuario.menuUsuario(usuario);
+                        registroUsuarios.modificar(usuario);
                     }
                     break;
                 case (3):

@@ -1,5 +1,6 @@
 import Ejercicios.Cardio;
 import Ejercicios.Flexibilidad;
+import Ejercicios.Fuerza;
 
 import java.time.LocalDate;
 
@@ -25,13 +26,13 @@ public class MenuUsuario {
 
             switch (menu) {
                 case 1:
-                    anadirEjercicio(usuario);
+                    usuario = anadirEjercicio(usuario);
                     break;
                 case 2:
-                    // Lógica para eliminar un ejercicio realizado
+                    usuario = eliminarEjercicio(usuario);
                     break;
                 case 3:
-                    // Lógica para mostrar el número de ejercicios realizados y el gasto calórico total
+                    ejerciciosRealizadosCaloriasTotal(usuario);
                     break;
                 case 4:
                     // Lógica para mostrar ejercicios realizados desde una fecha hasta la actualidad
@@ -62,6 +63,18 @@ public class MenuUsuario {
         }while(menuUsu);
         return usuario;
     }
+
+    private static void ejerciciosRealizadosCaloriasTotal(Usuario usuario) {
+        System.out.println("Has realizado "+usuario.getEjerciciosSize()+" ejercicios");
+        System.out.println("Con unas calorias totales de "+usuario.calcularConsumoCaloricoTotal());
+    }
+
+    private static Usuario eliminarEjercicio(Usuario usuario) {
+        System.out.println("Introduce el nombre del ejercicio que quieras eliminar ");
+        String ejercicio = PedirDatos.pedirPalabra("el ejercicio");
+        usuario.eliminarEjercicio(ejercicio);
+        return usuario;
+    }
     private static Usuario anadirEjercicio(Usuario usuario){
         int opcion;
         // Pedir el nombre
@@ -73,16 +86,17 @@ public class MenuUsuario {
         // Pedir la fecha
         System.out.println("Ingrese la fecha del ejercicio (en formato AAAA-MM-DD):");
         LocalDate fecha = PedirDatos.pedirFecha();
+        System.out.println(fecha);
         System.out.println("Que tipo de ejercicio desea añadir ");
         System.out.println("1.- Cardio ");
         System.out.println("2.- Flexibilidad ");
         System.out.println("3.-Fuerza ");
-        opcion= PedirDatos.pedirNumeroIntMaxMin(1,3);
+        opcion = PedirDatos.pedirNumeroIntMaxMin(1,3);
         switch (opcion){
             case 1:
                 System.out.println("Ingrese la distancia en kilómetros ");
                 double distancia = PedirDatos.pedirNumeroDoubleMin(0);
-                System.out.println("Ingrese la duración ");
+                System.out.println("Ingrese la duración en minutos");
                 double duracion = PedirDatos.pedirNumeroDoubleMin(0);
                 Cardio cardio = new Cardio(nombre,intensidad,fecha,distancia,duracion);
                 usuario.agregarEjercicioRealizado(cardio);
@@ -94,7 +108,12 @@ public class MenuUsuario {
                 usuario.agregarEjercicioRealizado(flexibilidad);
                 break;
             case 3:
-                System.out.println("");
+                System.out.println("Introduce el peso levantado en kilogramos ");
+                double peso = PedirDatos.pedirNumeroDoubleMin(0);
+                System.out.println("Introduce el número de repeticiones ");
+                int repes = PedirDatos.pedirNumeroIntMin(0);
+                Fuerza fuerza = new Fuerza(nombre,intensidad,fecha,peso,repes);
+                usuario.agregarEjercicioRealizado(fuerza);
                 break;
         }
         return usuario;

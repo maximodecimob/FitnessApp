@@ -58,4 +58,12 @@ public class Usuario {
         //Hacer el toString
         return "";
     }
+
+    public void eliminarEjercicio(String ejercicio) {
+        ejerciciosRelacionados.removeIf(value -> Objects.equals(value.getNombre(), ejercicio));
+    }
+
+    public int getEjerciciosSize() {
+        return ejerciciosRelacionados.size();
+    }
 }

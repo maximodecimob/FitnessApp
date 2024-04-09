@@ -11,9 +11,11 @@ public class Fuerza extends Ejercicio{
         this.peso = peso;
         this.repeticiones = repeticiones;
     }
-
     @Override
     public double calcularCalorias(double peso) {
-        return 0;
+        double calorias;
+        double met = this.peso * 0.1 * intensidad * repeticiones;
+        calorias = 0.0175 * peso * met;
+        return calorias;
     }
 }
