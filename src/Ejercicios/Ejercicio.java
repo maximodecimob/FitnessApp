@@ -13,7 +13,7 @@ public abstract class Ejercicio{
         this.intensidad = intensidad;
         this.fecha = fecha;
     }
-    public abstract double calcualrCalorias(double peso);
+    public abstract double calcularCalorias(double peso);
     @Override
     public String toString(){
         //Hacer un toString normal

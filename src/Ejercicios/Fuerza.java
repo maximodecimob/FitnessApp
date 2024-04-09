@@ -13,7 +13,7 @@ public class Fuerza extends Ejercicio{
     }
 
     @Override
-    public double calcualrCalorias(double peso) {
+    public double calcularCalorias(double peso) {
         return 0;
     }
 }

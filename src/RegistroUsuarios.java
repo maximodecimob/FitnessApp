@@ -3,12 +3,12 @@ import java.util.ArrayList;
 public class RegistroUsuarios {
     private ArrayList<Usuario> usuarios;
 
-    public RegistroUsuarios(ArrayList<Usuario> usuarios) {
+    public RegistroUsuarios() {
         //Hacer la correspondiente exception
-        this.usuarios = usuarios;
+        this.usuarios = new ArrayList<>();
     }
     public void agregarUsuario(Usuario usuario){
-        //Buscar que exista el usuario si no existe se agrega
+        //Buscar que exista el usuario si no existe se agrega en registro
     }
     public Usuario buscarUsuario(String nombre){
         Usuario usuario = null;
