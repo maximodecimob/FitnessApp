@@ -27,14 +27,7 @@ public class Usuario {
     }
 
     public void agregarEjercicioRealizado(Ejercicio ejercicio){
-        boolean existe = false;
-        for (Ejercicio value : ejerciciosRelacionados) {
-            if (Objects.equals(value.getNombre(), ejercicio.getNombre())) {
-                existe = true;
-                break;
-            }
-        }
-        if(!existe) {
+        if(ejercicio != null) {
             this.ejerciciosRelacionados.add(ejercicio);
         }
     }
@@ -66,5 +59,14 @@ public class Usuario {
 
     public int getEjerciciosSize() {
         return ejerciciosRelacionados.size();
+    }
+
+    public Ejercicio buscarEjercicio(String nombre) {
+        for(Ejercicio value : ejerciciosRelacionados){
+            if(Objects.equals(value.getNombre(), nombre)){
+                return value;
+            }
+        }
+        return null;
     }
 }

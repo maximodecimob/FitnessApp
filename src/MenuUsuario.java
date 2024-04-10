@@ -1,4 +1,5 @@
 import Ejercicios.Cardio;
+import Ejercicios.Ejercicio;
 import Ejercicios.Flexibilidad;
 import Ejercicios.Fuerza;
 
@@ -71,8 +72,9 @@ public class MenuUsuario {
 
     private static Usuario eliminarEjercicio(Usuario usuario) {
         System.out.println("Introduce el nombre del ejercicio que quieras eliminar ");
-        String ejercicio = PedirDatos.pedirPalabra("el ejercicio");
-        usuario.eliminarEjercicio(ejercicio);
+        String nombre = PedirDatos.pedirPalabra("el ejercicio");
+        Ejercicio ejercicio = usuario.buscarEjercicio(nombre);//Mira que el ejercicio exista
+        usuario.eliminarEjercicio(nombre);
         return usuario;
     }
     private static Usuario anadirEjercicio(Usuario usuario){
@@ -93,28 +95,41 @@ public class MenuUsuario {
         opcion = PedirDatos.pedirNumeroIntMaxMin(1,3);
         switch (opcion){
             case 1:
-                System.out.println("Ingrese la distancia en kilómetros ");
-                double distancia = PedirDatos.pedirNumeroDoubleMin(0);
-                System.out.println("Ingrese la duración en minutos");
-                double duracion = PedirDatos.pedirNumeroDoubleMin(0);
-                Cardio cardio = new Cardio(nombre,intensidad,fecha,distancia,duracion);
-                usuario.agregarEjercicioRealizado(cardio);
+                usuario = anadirCardio(usuario,nombre,intensidad,fecha);
                 break;
             case 2:
-                System.out.println("Introduce las repeticiones ");
-                int repeticiones = PedirDatos.pedirNumeroIntMin(0);
-                Flexibilidad flexibilidad = new Flexibilidad(nombre,intensidad,fecha,repeticiones);
-                usuario.agregarEjercicioRealizado(flexibilidad);
+                usuario = anadirFlexibilidad(usuario,nombre,intensidad,fecha);
                 break;
             case 3:
-                System.out.println("Introduce el peso levantado en kilogramos ");
-                double peso = PedirDatos.pedirNumeroDoubleMin(0);
-                System.out.println("Introduce el número de repeticiones ");
-                int repes = PedirDatos.pedirNumeroIntMin(0);
-                Fuerza fuerza = new Fuerza(nombre,intensidad,fecha,peso,repes);
-                usuario.agregarEjercicioRealizado(fuerza);
+                usuario = anadirFuerza(usuario,nombre,intensidad,fecha);
                 break;
         }
+        return usuario;
+    }
+
+    private static Usuario anadirFuerza(Usuario usuario, String nombre, int intensidad, LocalDate fecha) {
+        System.out.println("Introduce el peso levantado en kilogramos ");
+        double peso = PedirDatos.pedirNumeroDoubleMin(0);
+        System.out.println("Introduce el número de repeticiones ");
+        int repes = PedirDatos.pedirNumeroIntMin(0);
+        Fuerza fuerza = new Fuerza(nombre,intensidad,fecha,peso,repes);
+        usuario.agregarEjercicioRealizado(fuerza);
+        return usuario;
+    }
+    private static Usuario anadirFlexibilidad(Usuario usuario, String nombre, int intensidad, LocalDate fecha) {
+        System.out.println("Introduce las repeticiones ");
+        int repeticiones = PedirDatos.pedirNumeroIntMin(0);
+        Flexibilidad flexibilidad = new Flexibilidad(nombre,intensidad,fecha,repeticiones);
+        usuario.agregarEjercicioRealizado(flexibilidad);
+        return usuario;
+    }
+    private static Usuario anadirCardio(Usuario usuario,String nombre,int intensidad,LocalDate fecha) {
+        System.out.println("Ingrese la distancia en kilómetros ");
+        double distancia = PedirDatos.pedirNumeroDoubleMin(0);
+        System.out.println("Ingrese la duración en minutos");
+        double duracion = PedirDatos.pedirNumeroDoubleMin(0);
+        Cardio cardio = new Cardio(nombre,intensidad,fecha,distancia,duracion);
+        usuario.agregarEjercicioRealizado(cardio);
         return usuario;
     }
 }

@@ -97,7 +97,7 @@ public class PedirDatos {
             return false;
         }
     }
-    public static Nivel seleccionarNivel() {
+    public static Nivel seleccionarNivel() {//Pedir en PedirNumeros
         Scanner teclado = new Scanner(System.in);
 
         System.out.println("Por favor, ingresa tu nivel (PRINCIPIANTE, INTERMEDIO o AVANZADO):");
