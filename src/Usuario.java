@@ -22,10 +22,6 @@ public class Usuario {
         return nombre;
     }
 
-    public double getPeso() {
-        return peso;
-    }
-
     public void agregarEjercicioRealizado(Ejercicio ejercicio){
         if(ejercicio != null) {
             this.ejerciciosRelacionados.add(ejercicio);
@@ -43,7 +39,7 @@ public class Usuario {
     public int calcularConsumoCaloricoTotal(){
         double suma=0;
         for(Ejercicio value: ejerciciosRelacionados){
-            suma+= value.calcularCalorias(this.getPeso());
+            suma+= value.calcularCalorias(this.peso);
             //aqui no entiendo por qué has puesto getPeso() en vez de this.peso
         }
         return (int)suma;
@@ -55,7 +51,10 @@ public class Usuario {
     }
 
     public void eliminarEjercicio(String ejercicio) {
-        ejerciciosRelacionados.removeIf(value -> Objects.equals(value.getNombre(), ejercicio));
+        Ejercicio e = buscarEjercicio(ejercicio);
+        if(e != null){
+            ejerciciosRelacionados.remove(e);
+        }
     }
 
     public int getEjerciciosSize() {
