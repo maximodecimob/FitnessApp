@@ -13,6 +13,7 @@ public class RegistroUsuarios {
         for (Usuario value : usuarios) {
             if (Objects.equals(value.getNombre(), usuario.getNombre())) {
                 existe = true;
+                break;
             }
         }
         if(!existe) {

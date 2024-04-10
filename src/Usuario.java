@@ -44,6 +44,7 @@ public class Usuario {
         double suma=0;
         for(Ejercicio value: ejerciciosRelacionados){
             suma+= value.calcularCalorias(this.getPeso());
+            //aqui no entiendo por qué has puesto getPeso() en vez de this.peso
         }
         return (int)suma;
     }
