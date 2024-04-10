@@ -14,7 +14,7 @@ public class Flexibilidad extends Ejercicio{
     @Override
     public double calcularCalorias(double peso) {
         double calorias;
-        double met = intensidad * 0.1;
+        double met = repeticiones * 0.1;
         calorias = 0.0175 * peso * met;
         return calorias;
     }

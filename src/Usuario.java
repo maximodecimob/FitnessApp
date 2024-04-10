@@ -31,6 +31,7 @@ public class Usuario {
         for (Ejercicio value : ejerciciosRelacionados) {
             if (Objects.equals(value.getNombre(), ejercicio.getNombre())) {
                 existe = true;
+                break;
             }
         }
         if(!existe) {

@@ -86,7 +86,6 @@ public class MenuUsuario {
         // Pedir la fecha
         System.out.println("Ingrese la fecha del ejercicio (en formato AAAA-MM-DD):");
         LocalDate fecha = PedirDatos.pedirFecha();
-        System.out.println(fecha);
         System.out.println("Que tipo de ejercicio desea añadir ");
         System.out.println("1.- Cardio ");
         System.out.println("2.- Flexibilidad ");
