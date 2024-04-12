@@ -22,9 +22,9 @@ public class RegistroUsuarios {
     }
     public Usuario buscarUsuario(String nombre){
         Usuario usuario = null;
-        for (Usuario value : usuarios) {
+        for (Usuario u : usuarios) {
             if (Objects.equals(value.getNombre(), nombre)) {
-                usuario = value;
+                usuario = u;
             }
         }
         return usuario;
