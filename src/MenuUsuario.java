@@ -10,17 +10,20 @@ public class MenuUsuario {
         boolean menuUsu = true;
         int menu;
         do{
-            System.out.println("1. Registrar la realización de un nuevo ejercicio.");
-            System.out.println("2. Eliminar un ejercicio realizado dado su nombre y su fecha de realización.");
-            System.out.println("3. Mostrar el número de ejercicios total realizados y el gasto calórico total de ellos.");
-            System.out.println("4. Mostrar en número de ejercicios realizados desde una fecha hasta la actualidad, mostrando el gasto calórico total de esos ejercicios.");
-            System.out.println("5. Mostrar los ejercicios realizados de un determinado tipo, mostrando las calorías gastadas en la realización de cada uno.");
-            System.out.println("6. Mostrar los ejercicios realizados de un determinado tipo desde una fecha dada hasta la actualidad, con el gasto calórico total de ellos.");
-            System.out.println("7. Obtener todos los ejercicios, con toda su información, realizados en un determinado mes y año.");
-            System.out.println("8. Obtener todos los ejercicios, con toda su información, realizados entre dos fechas.");
-            System.out.println("9. Calcular la intensidad media de los ejercicios totales realizados.");
-            System.out.println("10. Calcular la intensidad media de los ejercicios realizados desde una fecha.");
-            System.out.println("11. Volver al menú anterior.");
+            System.out.println("1. Registrar la realización de un nuevo ejercicio.\n" +
+                "2. Eliminar un ejercicio realizado dado su nombre y su fecha de realización.\n" +
+                "3. Mostrar el número de ejercicios total realizados y el gasto calórico total de ellos.\n" +
+                "4. Mostrar en número de ejercicios realizados desde una fecha hasta la actualidad, mostrando el \n" +
+                "gasto calórico total de esos ejercicios.\n" +
+                "5. Mostrar los ejercicios realizados de un determinado tipo, mostrando las calorías gastadas en la \n" +
+                "realización de cada uno.\n" +
+                "6. Mostrar los ejercicios realizados de un determinado tipo desde una fecha dada hasta la actualidad, \n" +
+                "con el gasto calórico total de ellos.\n" +
+                "7. Obtener todos los ejercicios, con toda su información, realizados en un determinado mes y año.\n" +
+                "8. Obtener todos los ejercicios, con toda su información, realizados entre dos fechas.\n" +
+                "9. Calcular la intensidad media de los ejercicios totales realizados.\n" +
+                "10. Calcular la intensidad media de los ejercicios realizados desde una fecha.\n" +
+                "11. Volver al menú anterior");
             System.out.println("Ingrese el número de la opción deseada:");
 
             menu = PedirDatos.pedirNumeroIntMaxMin(1,11);
@@ -59,6 +62,10 @@ public class MenuUsuario {
                 case 11:
                     System.out.println("Volviendo al menú anterior...");
                     menuUsu=false;
+                    break;
+                 default:
+                    System.out.println("Error imprevisto. Saliendo...");
+                    salir=true;
                     break;
             }
         }while(menuUsu);
