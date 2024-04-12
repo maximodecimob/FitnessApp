@@ -22,11 +22,12 @@ public class Usuario {
         return nombre;
     }
 
-    public void agregarEjercicioRealizado(Ejercicio ejercicio){
-        if(ejercicio != null) {
-            this.ejerciciosRelacionados.add(ejercicio);
+    public void agregarEjercicioRealizado(Ejercicio ejercicio) {
+        if (ejercicio != null) {
+            ejerciciosRelacionados.add(ejercicio);
         }
     }
+    
     public int calcularPromedioIntensidad(){
         int media=0;
 
@@ -36,18 +37,23 @@ public class Usuario {
         media=media/ejerciciosRelacionados.size();
         return media;
     }
+    
     public int calcularConsumoCaloricoTotal(){
         double suma=0;
         for(Ejercicio value: ejerciciosRelacionados){
             suma+= value.calcularCalorias(this.peso);
-            //aqui no entiendo por qué has puesto getPeso() en vez de this.peso
         }
         return (int)suma;
     }
+    
     @Override
     public String toString(){
-        //Hacer el toString
-        return "";
+         return "Datos del usuario:\n" +
+                "Nombre: " + nombre + "\n" +
+                "Edad: " + edad + "\n" +
+                "Peso:" + peso + "\n" +
+                "Nivel:" + nivel + "\n" +
+                "EjerciciosRelacionados:" + ejerciciosRelacionados.toString();
     }
 
     public void eliminarEjercicio(String ejercicio) {
