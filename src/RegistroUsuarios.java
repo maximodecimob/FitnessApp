@@ -23,7 +23,7 @@ public class RegistroUsuarios {
     public Usuario buscarUsuario(String nombre){
         Usuario usuario = null;
         for (Usuario u : usuarios) {
-            if (Objects.equals(value.getNombre(), nombre)) {
+            if (Objects.equals(u.getNombre(), nombre)) {
                 usuario = u;
             }
         }
