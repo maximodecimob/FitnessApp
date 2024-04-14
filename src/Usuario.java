@@ -1,6 +1,7 @@
 import Ejercicios.Ejercicio;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -51,8 +52,15 @@ public class Usuario {
     }
     @Override
     public String toString(){
-        //Hacer el toString
-        return "";
+        StringBuilder result = new StringBuilder("Usuario: " + nombre + "\n");
+        result.append("Edad: ").append(edad).append("\n");
+        result.append("Peso: ").append(peso).append(" kg\n");
+        result.append("Nivel: ").append(nivel).append("\n");
+        result.append("Ejercicios Relacionados: \n");
+        for (Ejercicio ejercicio : ejerciciosRelacionados) {
+            result.append(ejercicio.toString()).append("\n");
+        }
+        return result.toString();
     }
 
     public void eliminarEjercicio(Ejercicio ejercicio) {
@@ -99,4 +107,35 @@ public class Usuario {
         }
         return ejercicios;
     }
+    public ArrayList<Ejercicio> ejerciciosEnAnoMes(YearMonth yearMonth) {
+        ArrayList<Ejercicio> ejerciciosEnAnoMes = new ArrayList<>();
+        for (Ejercicio ejercicio : ejerciciosRelacionados) {
+            if (YearMonth.from(ejercicio.getFecha()).equals(yearMonth)) {
+                ejerciciosEnAnoMes.add(ejercicio);
+            }
+        }
+        return ejerciciosEnAnoMes;
+    }
+
+    public ArrayList<Ejercicio> ejerciciosEntreFechas(LocalDate fecha1, LocalDate fecha2) {
+        ArrayList<Ejercicio> ejercicios = new ArrayList<>();
+        for(Ejercicio value: ejerciciosRelacionados){
+            if(value.getFecha().isAfter(fecha1)&&value.getFecha().isBefore(fecha2)){
+                ejercicios.add(value);
+            }
+        }
+        return ejercicios;
+    }
+
+    public double IntensidadMediaFecha(LocalDate fecha) {
+        double intensidad = 0;
+        int total =0;
+        for (Ejercicio ejercicio : ejerciciosRelacionados) {
+            if (ejercicio.getFecha().isAfter(fecha)) {
+                intensidad += ejercicio.getIntensidad();
+                        total += 1;
+                }
+            }
+        return intensidad/total;
+        }
 }

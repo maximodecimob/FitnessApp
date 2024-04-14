@@ -4,6 +4,7 @@ import Ejercicios.Flexibilidad;
 import Ejercicios.Fuerza;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 
 public class MenuUsuario {
@@ -19,6 +20,7 @@ public class MenuUsuario {
         usuario.agregarEjercicioRealizado(new Fuerza("Press de banca", 4, LocalDate.of(2023, 8, 1), 60.0, 8));
         usuario.agregarEjercicioRealizado(new Fuerza("Sentadillas", 3, LocalDate.of(2023, 9, 1), 70.0, 12));
         int menu;
+        System.out.println("Bienvenido"+ usuario.getNombre()+" , ¿Qué desea hacer?");
         do{
             System.out.println();
             System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------");
@@ -57,19 +59,18 @@ public class MenuUsuario {
                     break;
                 case 6:
                     ejerciciosDeUnTipoEntreFecha(usuario);
-                    // Lógica para mostrar ejercicios de un tipo desde una fecha hasta la actualidad
                     break;
                 case 7:
-                    // Lógica para obtener ejercicios realizados en un mes y año específicos
+                    obtenerEjerciciosEnFecha(usuario);
                     break;
                 case 8:
-                    // Lógica para obtener ejercicios realizados entre dos fechas
+                    obtenerEjerciciosEntreFechas(usuario);
                     break;
                 case 9:
-                    // Lógica para calcular la intensidad media de todos los ejercicios
+                    calcularIntensidadMediaEjercicios(usuario);
                     break;
                 case 10:
-                    // Lógica para calcular la intensidad media de ejercicios desde una fecha
+                    calcularIntensidadMediaFecha(usuario);
                     break;
                 case 11:
                     System.out.println("Volviendo al menú anterior...");
@@ -79,7 +80,35 @@ public class MenuUsuario {
         }while(menuUsu);
         return usuario;
     }
+    private static void calcularIntensidadMediaFecha(Usuario usuario){
+        System.out.println("Introduce la fecha desde la cual quieres calcular la intensidad media");
+        LocalDate fecha = PedirDatos.pedirFecha();
+        System.out.println("La intensidad media desde "+fecha.toString()+" hasta la actualidad es de "+usuario.IntensidadMediaFecha(fecha));
+    }
+    private static void calcularIntensidadMediaEjercicios(Usuario usuario) {
+        double intensidad = usuario.calcularPromedioIntensidad();
+        System.out.println("La intensidad media por ejercicio realizado es de "+ intensidad);
+    }
 
+    private static void obtenerEjerciciosEntreFechas(Usuario usuario) {
+        System.out.println("Introduce la fecha desde la que quieres empezar a listar");
+        LocalDate fecha1 = PedirDatos.pedirFecha();
+        System.out.println("Introduce la fecha hasta la que quieres acabar a listar");
+        LocalDate fecha2 = PedirDatos.pedirFecha();
+        ArrayList<Ejercicio> ejercicios= usuario.ejerciciosEntreFechas(fecha1,fecha2);
+        for (Ejercicio value: ejercicios){
+            System.out.println(value.toString());
+        }
+    }
+
+    private static void obtenerEjerciciosEnFecha(Usuario usuario) {
+        System.out.println("Introduce el mes y el año de cuando quieras ver");
+        YearMonth yearMonth = PedirDatos.PedirAnoMes();
+        ArrayList<Ejercicio> ejercicios = usuario.ejerciciosEnAnoMes(yearMonth);
+        for (Ejercicio value: ejercicios){
+            System.out.println(value.toString());
+        }
+    }
     private static void ejerciciosDeUnTipoEntreFecha(Usuario usuario) {
         System.out.println("Introduce que tipo de ejercicio quieres listar desde una fecha hasta la actualidad");
         System.out.println("1.- Cardio ");

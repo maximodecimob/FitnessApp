@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -97,7 +98,7 @@ public class PedirDatos {
             return false;
         }
     }
-    public static Nivel seleccionarNivel() {//Pedir en PedirNumeros
+    public static Nivel seleccionarNivel() {
         Scanner teclado = new Scanner(System.in);
 
         System.out.println("Por favor, ingresa tu nivel (PRINCIPIANTE, INTERMEDIO o AVANZADO):");
@@ -135,5 +136,29 @@ public class PedirDatos {
             }
         } while (!fechaValida);
         return fecha;
+    }
+    public static YearMonth PedirAnoMes(){
+        Scanner teclado = new Scanner(System.in);
+        LocalDate fecha = null;
+        YearMonth yearMonth = null;
+        LocalDate fechaMinima = LocalDate.of(2000, 1, 1);
+        LocalDate fechaActual = LocalDate.now();
+        boolean fechaValida = false;
+        do {
+            try {
+                System.out.print("Ingrese el mes y el año (formato AAAA-MM): ");
+                String input = teclado.nextLine();
+                yearMonth = YearMonth.parse(input);
+                fecha = yearMonth.atDay(1);
+                if (fecha.isAfter(fechaMinima) && (fecha.isBefore(fechaActual)||fecha.isEqual(fechaActual))) {
+                    fechaValida = true;
+                } else {
+                    System.out.println("Ingrese un mes y año entre el año 2000 y el mes y año actual inclusive.");
+                }
+            } catch (Exception ex) {
+                System.out.println("Ingrese un mes y año válidos en el formato especificado.");
+            }
+        } while (!fechaValida);
+        return yearMonth;
     }
 }
