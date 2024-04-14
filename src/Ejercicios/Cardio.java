@@ -14,6 +14,12 @@ public class Cardio extends Ejercicio {
     }
 
     @Override
+    public String toString() {
+        return "El ejercicio de Cardio '"+nombre+"' consistió en correr una distancia de "+distancia+" kilómetros " +
+                "durante "+duracion+" minutos, con una intensidad de "+intensidad+" sobre 8, realizado en la fecha "+fecha+".";
+    }
+
+    @Override
     public double calcularCalorias(double peso) {
         double calorias;
         double met = distancia * intensidad * duracion;

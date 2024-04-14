@@ -7,10 +7,13 @@ public abstract class Ejercicio{
     protected int intensidad;
     protected LocalDate fecha;
 
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
     public int getIntensidad() {
         return intensidad;
     }
-
     public String getNombre() {
         return nombre;
     }
@@ -22,9 +25,11 @@ public abstract class Ejercicio{
         this.fecha = fecha;
     }
     public abstract double calcularCalorias(double peso);
+
     @Override
-    public String toString(){
-        //Hacer un toString normal
-        return "";
+    public String toString() {
+        return "Este ejercicio de nombre '" + nombre + "' " +
+                "se realizó con una intensidad de " + intensidad + "sobre 8, en la fecha " + fecha + ".";
+
     }
 }

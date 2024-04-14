@@ -12,6 +12,14 @@ public class Flexibilidad extends Ejercicio{
     }
 
     @Override
+    public String toString() {
+        return "Para el ejercicio de Flexibilidad llamado '" + nombre + "'" +
+                ", se realizaron " + repeticiones + " repeticiones con una intensidad de " + intensidad + " sobre 8" +
+                ", en la fecha " + fecha + ".";
+
+    }
+
+    @Override
     public double calcularCalorias(double peso) {
         double calorias;
         double met = repeticiones * 0.1;

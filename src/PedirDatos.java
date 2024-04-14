@@ -44,10 +44,10 @@ public class PedirDatos {
             try {
                 num = teclado.nextDouble();
                 if(num < min){
-                    System.out.print("Introduzca un número mayor que " + min);
+                    System.out.print("Introduzca un número mayor que " + min+" ");
                 }
             }catch (Exception ex){
-                System.out.print("Introduzca un número mayor que " + min);
+                System.out.print("Introduzca un número mayor que " + min+ " ");
                 String texto = teclado.nextLine();
                 num = min - 1;
             }
@@ -119,20 +119,21 @@ public class PedirDatos {
         LocalDate fecha = null;
         LocalDate fechaMinima = LocalDate.of(2000, 1, 1);
         LocalDate fechaActual = LocalDate.now();
+        boolean fechaValida = false;
         do {
             try {
                 System.out.print("Ingrese una fecha (formato AAAA-MM-DD): ");
                 String input = teclado.nextLine();
                 fecha = LocalDate.parse(input);
-                if (!(fecha.isAfter(fechaMinima) || fecha.isEqual(fechaActual))) {
+                if (fecha.isAfter(fechaMinima) && (fecha.isBefore(fechaActual)||fecha.isEqual(fechaActual))) {
+                    fechaValida = true;
+                } else {
                     System.out.println("Ingrese una fecha entre el año 2000 y hoy inclusive.");
                 }
             } catch (Exception ex) {
                 System.out.println("Ingrese una fecha válida en el formato especificado.");
-                fecha = LocalDate.of(1999, 12, 20); // Establecer una fecha predeterminada
-                teclado.nextLine(); // Consumir la entrada incorrecta
             }
-        } while (!(fecha.isAfter(fechaMinima) || fecha.isEqual(fechaActual)));
+        } while (!fechaValida);
         return fecha;
     }
 }

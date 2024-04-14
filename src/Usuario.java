@@ -1,5 +1,6 @@
 import Ejercicios.Ejercicio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -16,6 +17,10 @@ public class Usuario {
         this.peso = peso;
         this.nivel = nivel;
         this.ejerciciosRelacionados = new ArrayList<>();
+    }
+
+    public double getPeso() {
+        return peso;
     }
 
     public String getNombre() {
@@ -50,23 +55,48 @@ public class Usuario {
         return "";
     }
 
-    public void eliminarEjercicio(String ejercicio) {
-        Ejercicio e = buscarEjercicio(ejercicio);
-        if(e != null){
-            ejerciciosRelacionados.remove(e);
-        }
+    public void eliminarEjercicio(Ejercicio ejercicio) {
+        ejerciciosRelacionados.remove(ejercicio);
     }
 
     public int getEjerciciosSize() {
         return ejerciciosRelacionados.size();
     }
 
-    public Ejercicio buscarEjercicio(String nombre) {
+    public Ejercicio buscarEjercicio(String nombre,LocalDate fecha) {
         for(Ejercicio value : ejerciciosRelacionados){
-            if(Objects.equals(value.getNombre(), nombre)){
+            if(Objects.equals(value.getNombre(), nombre) && Objects.equals(value.getFecha(), fecha)){
                 return value;
             }
         }
         return null;
+    }
+    public ArrayList<Ejercicio> ejerciciosDespuesDeFecha(LocalDate fecha){
+        ArrayList<Ejercicio> ejercicios = new ArrayList<>();
+        for(Ejercicio value: ejerciciosRelacionados){
+            if(value.getFecha().isAfter(fecha)){
+                ejercicios.add(value);
+            }
+        }
+        return ejercicios;
+    }
+    public ArrayList<Ejercicio> obtenerEjerciciosPorTipo(Class<? extends Ejercicio> tipo) {
+        ArrayList<Ejercicio> ejerciciosPorTipo = new ArrayList<>();
+        for (Ejercicio ejercicio : ejerciciosRelacionados) {
+            if (tipo.isInstance(ejercicio)) {
+                ejerciciosPorTipo.add(ejercicio);
+            }
+        }
+        return ejerciciosPorTipo;
+    }
+
+    public ArrayList<Ejercicio> obtenerEjerciciosPorTipoFecha(Class<? extends Ejercicio> tipo, LocalDate fecha) {
+        ArrayList<Ejercicio> ejercicios = new ArrayList<>();
+        for(Ejercicio value: ejerciciosRelacionados){
+            if(value.getFecha().isAfter(fecha)&&value.getFecha().isBefore(LocalDate.now())&&tipo.isInstance(value)){
+                ejercicios.add(value);
+            }
+        }
+        return ejercicios;
     }
 }

@@ -11,6 +11,14 @@ public class Fuerza extends Ejercicio{
         this.peso = peso;
         this.repeticiones = repeticiones;
     }
+
+    @Override
+    public String toString() {
+        return "El ejercicio de Fuerza '" + nombre + "' " +
+                "consistió en levantar un peso de " + peso + " kilogramos durante " +
+                 repeticiones + " repeticiones, con una intensidad de " + intensidad + " sobre 8, realizado en la fecha " + fecha + ".";
+    }
+
     @Override
     public double calcularCalorias(double peso) {
         double calorias;

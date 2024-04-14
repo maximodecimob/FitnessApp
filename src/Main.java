@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        ProgramaPrincipal.menuGeneral();
+        PedirDatos.pedirFecha();
+        //ProgramaPrincipal.menuGeneral();
     }
 }

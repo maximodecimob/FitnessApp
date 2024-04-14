@@ -1,6 +1,3 @@
-import java.util.Objects;
-import java.util.Scanner;
-
 public class ProgramaPrincipal {
     public static void menuGeneral(){
         int menu;
@@ -26,7 +23,7 @@ public class ProgramaPrincipal {
     private static RegistroUsuarios switchMenu(int menu,RegistroUsuarios registroUsuarios){
         switch (menu) {
             case (1):
-                registroUsuarios = registrarse(registroUsuarios);
+                registrarse(registroUsuarios);
                 break;
             case (2):
                 registroUsuarios = inicioSesion(registroUsuarios);
@@ -58,7 +55,7 @@ public class ProgramaPrincipal {
         return registroUsuarios;
     }
 
-    private static RegistroUsuarios registrarse(RegistroUsuarios registroUsuarios) {
+    private static void registrarse(RegistroUsuarios registroUsuarios) {
         System.out.println("Introduce el nombre: ");
         String nombre = PedirDatos.pedirPalabra("el nombre");
         System.out.println("Introduce el peso: ");
@@ -69,6 +66,5 @@ public class ProgramaPrincipal {
         Usuario nuevoUsuario = new Usuario(nombre,edad,peso,nivel);
         registroUsuarios.agregarUsuario(nuevoUsuario);
         System.out.println("Usuario registrado correctamente");
-        return registroUsuarios;
     }
 }
