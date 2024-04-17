@@ -1,24 +1,51 @@
 package Ejercicios;
 
 import java.time.LocalDate;
+/**
+ * La clase Fuerza representa un tipo de ejercicio diseñado para aumentar la fuerza muscular.
+ * Hereda de la clase Ejercicio e incluye atributos específicos como el peso levantado y el número de repeticiones.
+ */
+public class Fuerza extends Ejercicio {
 
-public class Fuerza extends Ejercicio{
+    /** El peso levantado durante el ejercicio de fuerza, en kilogramos. */
     private double peso;
+
+    /** El número de repeticiones del ejercicio de fuerza. */
     private int repeticiones;
-    public Fuerza(String nombre, int intensidad, LocalDate fecha,double peso,int repeticiones) {
+
+    /**
+     * Constructor para la clase Fuerza.
+     *
+     * @param nombre el nombre del ejercicio de fuerza
+     * @param intensidad la intensidad del ejercicio en una escala del 1 al 8
+     * @param fecha la fecha en la que se realizó el ejercicio
+     * @param peso el peso levantado durante el ejercicio, en kilogramos
+     * @param repeticiones el número de repeticiones del ejercicio de fuerza
+     */
+    public Fuerza(String nombre, int intensidad, LocalDate fecha, double peso, int repeticiones) {
         super(nombre, intensidad, fecha);
-        //Hacer la correspondiente exception
         this.peso = peso;
         this.repeticiones = repeticiones;
     }
 
+    /**
+     * Obtiene una representación en forma de cadena del objeto Fuerza.
+     *
+     * @return una cadena que describe el ejercicio de fuerza
+     */
     @Override
     public String toString() {
         return "El ejercicio de Fuerza '" + nombre + "' " +
                 "consistió en levantar un peso de " + peso + " kilogramos durante " +
-                 repeticiones + " repeticiones, con una intensidad de " + intensidad + " sobre 8, realizado en la fecha " + fecha + ".";
+                repeticiones + " repeticiones, con una intensidad de " + intensidad + " sobre 8, realizado en la fecha " + fecha + ".";
     }
 
+    /**
+     * Calcula las calorías quemadas durante el ejercicio de fuerza.
+     *
+     * @param peso el peso del individuo que realiza el ejercicio, en kilogramos
+     * @return el número de calorías quemadas durante el ejercicio de fuerza
+     */
     @Override
     public double calcularCalorias(double peso) {
         double calorias;
@@ -27,3 +54,4 @@ public class Fuerza extends Ejercicio{
         return calorias;
     }
 }
+

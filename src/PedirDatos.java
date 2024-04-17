@@ -3,93 +3,115 @@ import java.time.YearMonth;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * La clase PedirDatos proporciona métodos para solicitar diversos tipos de datos al usuario desde la consola.
+ */
 public class PedirDatos {
+
+    /**
+     * Solicita al usuario un número entero mayor o igual que el valor mínimo especificado.
+     *
+     * @param min el valor mínimo permitido
+     * @return el número entero ingresado por el usuario
+     */
     public static int pedirNumeroIntMin(int min) {
         Scanner teclado = new Scanner(System.in);
-        int num=0;
-        do{
+        int num = 0;
+        do {
             try {
                 num = teclado.nextInt();
-                if(num < min){
+                if (num < min) {
                     System.out.print("Introduzca un número mayor que " + min);
                 }
-            }catch (Exception ex){
+            } catch (Exception ex) {
                 System.out.print("Introduzca un número mayor que " + min);
                 String texto = teclado.nextLine();
                 num = min - 1;
             }
-        }while(num < min);
+        } while (num < min);
         return num;
     }
+
+    /**
+     * Solicita al usuario un número entero dentro de un rango específico.
+     *
+     * @param min el valor mínimo permitido
+     * @param max el valor máximo permitido
+     * @return el número entero ingresado por el usuario
+     */
     public static int pedirNumeroIntMaxMin(int min, int max) {
         Scanner teclado = new Scanner(System.in);
-        int num=0;
-        do{
+        int num = 0;
+        do {
             try {
                 num = teclado.nextInt();
-                if(num < min || num > max){
-                    System.out.print("Introduzca un número en el rango " + min + "-" + max+":");
+                if (num < min || num > max) {
+                    System.out.print("Introduzca un número en el rango " + min + "-" + max + ":");
                 }
-            }catch (Exception ex){
-                System.out.print("Introduzca un número en el rango " + min + "-" + max+":");
+            } catch (Exception ex) {
+                System.out.print("Introduzca un número en el rango " + min + "-" + max + ":");
                 String texto = teclado.nextLine();
                 num = min - 1;
             }
-        }while(num < min || num > max);
+        } while (num < min || num > max);
         return num;
     }
+
+    /**
+     * Solicita al usuario un número decimal mayor o igual que el valor mínimo especificado.
+     *
+     * @param min el valor mínimo permitido
+     * @return el número decimal ingresado por el usuario
+     */
     public static double pedirNumeroDoubleMin(int min) {
         Scanner teclado = new Scanner(System.in);
-        double num=0;
-        do{
+        double num = 0;
+        do {
             try {
                 num = teclado.nextDouble();
-                if(num < min){
-                    System.out.print("Introduzca un número mayor que " + min+" ");
+                if (num < min) {
+                    System.out.print("Introduzca un número mayor que " + min + " ");
                 }
-            }catch (Exception ex){
-                System.out.print("Introduzca un número mayor que " + min+ " ");
+            } catch (Exception ex) {
+                System.out.print("Introduzca un número mayor que " + min + " ");
                 String texto = teclado.nextLine();
                 num = min - 1;
             }
-        }while(num < min);
+        } while (num < min);
         return num;
     }
-    public static double pedirNumeroDoubleMaxMin(int min, int max) {
-        Scanner teclado = new Scanner(System.in);
-        double num=0;
-        do{
-            try {
-                num = teclado.nextDouble();
-                if(num < min || num > max){
-                    System.out.print("Introduzca un número en el rango " + min + "-" + max+":");
-                }
-            }catch (Exception ex){
-                System.out.print("Introduzca un número en el rango " + min + "-" + max+":");
-                String texto = teclado.nextLine();
-                num = min - 1;
-            }
-        }while(num < min || num > max);
-        return num;
-    }
+
+    /**
+     * Solicita al usuario una palabra (cadena de caracteres que no contenga números ni caracteres especiales).
+     *
+     * @param peticion el mensaje de solicitud al usuario
+     * @return la palabra ingresada por el usuario
+     */
     public static String pedirPalabra(String peticion) {
         Scanner teclado = new Scanner(System.in);
         String palabra;
-        do{
+        do {
             try {
                 palabra = teclado.nextLine();
-                if (esNumero(palabra)) {
-                    System.out.println(peticion+" no puede ser un número. Inténtelo de nuevo.");
+                if (esNumero(palabra) || contieneCaracteresEspeciales(palabra)) {
+                    System.out.println(peticion + " no puede contener números ni caracteres especiales. Inténtelo de nuevo.");
                     palabra = ""; // Restablecer la palabra para volver a solicitarla
                 }
-            }catch (Exception ex){
-                System.out.print("Introduzca "+peticion);
+            } catch (Exception ex) {
+                System.out.print("Introduzca " + peticion);
                 String texto = teclado.nextLine();
                 palabra = "";
             }
-        }while(Objects.equals(palabra, ""));
+        } while (Objects.equals(palabra, ""));
         return palabra;
     }
+
+    /**
+     * Verifica si una cadena de caracteres contiene números.
+     *
+     * @param str la cadena de caracteres a verificar
+     * @return true si la cadena contiene números, false en caso contrario
+     */
     private static boolean esNumero(String str) {
         try {
             Double.parseDouble(str);
@@ -98,6 +120,26 @@ public class PedirDatos {
             return false;
         }
     }
+
+    /**
+     * Verifica si una cadena de caracteres contiene caracteres especiales.
+     *
+     * @param str la cadena de caracteres a verificar
+     * @return true si la cadena contiene caracteres especiales, false en caso contrario
+     */
+    public static boolean contieneCaracteresEspeciales(String str) {
+        try {
+            return !str.matches("[a-zA-Z ]+");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Solicita al usuario seleccionar un nivel de actividad física.
+     *
+     * @return el nivel de actividad física seleccionado por el usuario
+     */
     public static Nivel seleccionarNivel() {
         Scanner teclado = new Scanner(System.in);
 
@@ -115,6 +157,11 @@ public class PedirDatos {
         return nivel;
     }
 
+    /**
+     * Solicita al usuario ingresar una fecha en formato AAAA-MM-DD.
+     *
+     * @return la fecha ingresada por el usuario
+     */
     public static LocalDate pedirFecha() {
         Scanner teclado = new Scanner(System.in);
         LocalDate fecha = null;
@@ -126,7 +173,7 @@ public class PedirDatos {
                 System.out.print("Ingrese una fecha (formato AAAA-MM-DD): ");
                 String input = teclado.nextLine();
                 fecha = LocalDate.parse(input);
-                if (fecha.isAfter(fechaMinima) && (fecha.isBefore(fechaActual)||fecha.isEqual(fechaActual))) {
+                if (fecha.isAfter(fechaMinima) && (fecha.isBefore(fechaActual) || fecha.isEqual(fechaActual))) {
                     fechaValida = true;
                 } else {
                     System.out.println("Ingrese una fecha entre el año 2000 y hoy inclusive.");
@@ -137,7 +184,13 @@ public class PedirDatos {
         } while (!fechaValida);
         return fecha;
     }
-    public static YearMonth PedirAnoMes(){
+
+    /**
+     * Solicita al usuario ingresar un mes y año en formato AAAA-MM.
+     *
+     * @return el año y mes ingresado por el usuario
+     */
+    public static YearMonth pedirAnoMes() {
         Scanner teclado = new Scanner(System.in);
         LocalDate fecha = null;
         YearMonth yearMonth = null;
@@ -150,7 +203,7 @@ public class PedirDatos {
                 String input = teclado.nextLine();
                 yearMonth = YearMonth.parse(input);
                 fecha = yearMonth.atDay(1);
-                if (fecha.isAfter(fechaMinima) && (fecha.isBefore(fechaActual)||fecha.isEqual(fechaActual))) {
+                if (fecha.isAfter(fechaMinima) && (fecha.isBefore(fechaActual) || fecha.isEqual(fechaActual))) {
                     fechaValida = true;
                 } else {
                     System.out.println("Ingrese un mes y año entre el año 2000 y el mes y año actual inclusive.");
@@ -162,3 +215,4 @@ public class PedirDatos {
         return yearMonth;
     }
 }
+
