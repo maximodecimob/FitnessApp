@@ -16,9 +16,8 @@ public class MenuUsuario {
      * Presenta un menú interactivo para que el usuario realice diversas operaciones relacionadas con sus ejercicios.
      *
      * @param usuario el usuario para el cual se realiza el menú
-     * @return el usuario actualizado después de realizar las operaciones seleccionadas
      */
-    public static Usuario menuUsuario(Usuario usuario) {
+    public static void menuUsuario(Usuario usuario) {
         boolean menuUsu = true;
         // Añadir ejercicios de muestra para propósitos de prueba
         int menu;
@@ -46,7 +45,6 @@ public class MenuUsuario {
                 }
             }
         } while (menuUsu);
-        return usuario;
     }
 
     // Métodos privados auxiliares para manejar las opciones del menú
