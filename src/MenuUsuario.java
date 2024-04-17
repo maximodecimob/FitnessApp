@@ -21,7 +21,6 @@ public class MenuUsuario {
     public static Usuario menuUsuario(Usuario usuario) {
         boolean menuUsu = true;
         // Añadir ejercicios de muestra para propósitos de prueba
-        añadirEjerciciosDeMuestra(usuario);
         int menu;
         System.out.println("Bienvenido " + usuario.getNombre() + ", ¿Qué desea hacer?");
         do {
