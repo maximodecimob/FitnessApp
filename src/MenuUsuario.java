@@ -71,19 +71,6 @@ public class MenuUsuario {
         System.out.println();
         System.out.println("Ingrese el número de la opción deseada:");
     }
-
-    // Método para añadir ejercicios de muestra para propósitos de prueba
-    private static void añadirEjerciciosDeMuestra(Usuario usuario) {
-        usuario.agregarEjercicioRealizado(new Cardio("Correr", 2, LocalDate.of(2023, 1, 1), 20, 15));
-        usuario.agregarEjercicioRealizado(new Cardio("Nadar", 3, LocalDate.of(2023, 2, 1), 30, 12));
-        usuario.agregarEjercicioRealizado(new Cardio("Saltar la cuerda", 4, LocalDate.of(2023, 3, 1), 25, 10));
-        usuario.agregarEjercicioRealizado(new Flexibilidad("Estiramiento de piernas", 5, LocalDate.of(2023, 4, 1), 10));
-        usuario.agregarEjercicioRealizado(new Flexibilidad("Estiramiento de brazos", 3, LocalDate.of(2023, 5, 1), 8));
-        usuario.agregarEjercicioRealizado(new Flexibilidad("Estiramiento de espalda", 4, LocalDate.of(2023, 6, 1), 12));
-        usuario.agregarEjercicioRealizado(new Fuerza("Levantamiento de pesas", 5, LocalDate.of(2023, 7, 1), 50.0, 10));
-        usuario.agregarEjercicioRealizado(new Fuerza("Press de banca", 4, LocalDate.of(2023, 8, 1), 60.0, 8));
-        usuario.agregarEjercicioRealizado(new Fuerza("Sentadillas", 3, LocalDate.of(2023, 9, 1), 70.0, 12));
-    }
     /**
      * Calcula y muestra la intensidad media de los ejercicios realizados desde una fecha dada hasta la actualidad.
      *
