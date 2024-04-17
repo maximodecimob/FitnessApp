@@ -85,7 +85,7 @@ public class ProgramaPrincipal {
     private static void registrarse(RegistroUsuarios registroUsuarios) {
         System.out.println("Introduce el nombre: ");
         String nombre = PedirDatos.pedirPalabra("el nombre");
-        System.out.println("Introduce el peso: ");
+        System.out.println("Introduce el peso en kilogramos: ");
         double peso = PedirDatos.pedirNumeroDoubleMin(0);
         System.out.println("Introduce la edad: ");
         int edad = PedirDatos.pedirNumeroIntMin(0);
