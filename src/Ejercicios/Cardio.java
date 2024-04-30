@@ -23,8 +23,13 @@ public class Cardio extends Ejercicio implements Serializable {
      * @param distancia la distancia recorrida durante el ejercicio, en kilómetros
      * @param duracion la duración del ejercicio, en minutos
      */
-    public Cardio(String nombre, int intensidad, LocalDate fecha, double distancia, double duracion) {
+    public Cardio(String nombre, int intensidad, LocalDate fecha, double distancia, double duracion) throws Exception {
         super(nombre, intensidad, fecha);
+        if(distancia<0){
+            throw new Exception("Distancia");
+        } else if (duracion<0) {
+            throw new Exception("Duración");
+        }
         this.distancia = distancia;
         this.duracion = duracion;
     }

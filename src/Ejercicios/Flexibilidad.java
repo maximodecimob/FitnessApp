@@ -20,8 +20,11 @@ public class Flexibilidad extends Ejercicio implements Serializable {
      * @param fecha la fecha en la que se realizó el ejercicio
      * @param repeticiones el número de repeticiones del ejercicio de flexibilidad
      */
-    public Flexibilidad(String nombre, int intensidad, LocalDate fecha, int repeticiones) {
+    public Flexibilidad(String nombre, int intensidad, LocalDate fecha, int repeticiones) throws Exception {
         super(nombre, intensidad, fecha);
+        if(repeticiones<0){
+            throw new Exception("Repeticiones");
+        }
         this.repeticiones = repeticiones;
     }
 

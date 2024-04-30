@@ -23,8 +23,13 @@ public class Fuerza extends Ejercicio implements Serializable {
      * @param peso el peso levantado durante el ejercicio, en kilogramos
      * @param repeticiones el número de repeticiones del ejercicio de fuerza
      */
-    public Fuerza(String nombre, int intensidad, LocalDate fecha, double peso, int repeticiones) {
+    public Fuerza(String nombre, int intensidad, LocalDate fecha, double peso, int repeticiones) throws Exception {
         super(nombre, intensidad, fecha);
+        if(peso<0){
+            throw new Exception("Peso");
+        } else if (repeticiones<0) {
+            throw new Exception("Repeticiones");
+        }
         this.peso = peso;
         this.repeticiones = repeticiones;
     }

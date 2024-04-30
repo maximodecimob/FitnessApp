@@ -35,7 +35,12 @@ public class Usuario implements Serializable {
      * @param peso el peso del usuario, en kilogramos
      * @param nivel el nivel de actividad del usuario
      */
-    public Usuario(String nombre, int edad, double peso, Nivel nivel) {
+    public Usuario(String nombre, int edad, double peso, Nivel nivel) throws Exception {
+        if(nivel == null){
+            throw new Exception("Nivel");
+        } else if (Objects.equals(nombre, "")) {
+            throw new Exception("Nombre");
+        }
         this.nombre = nombre;
         this.edad = edad;
         this.peso = peso;
