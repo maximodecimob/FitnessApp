@@ -1,5 +1,6 @@
 import Ejercicios.Ejercicio;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.Objects;
  * La clase Usuario representa un usuario que realiza ejercicios físicos.
  * Contiene información sobre el nombre, edad, peso, nivel de actividad y los ejercicios relacionados del usuario.
  */
-public class Usuario {
+public class Usuario implements Serializable {
 
     /** El nombre del usuario. */
     private String nombre;
@@ -42,6 +43,14 @@ public class Usuario {
         this.ejerciciosRelacionados = new ArrayList<>();
     }
 
+    public int getEdad() {
+        return edad;
+    }
+
+    public ArrayList<Ejercicio> getEjerciciosRelacionados() {
+        return ejerciciosRelacionados;
+    }
+
     /**
      * Obtiene el peso del usuario.
      *
@@ -49,6 +58,10 @@ public class Usuario {
      */
     public double getPeso() {
         return peso;
+    }
+
+    public Nivel getNivel() {
+        return nivel;
     }
 
     /**
@@ -82,7 +95,11 @@ public class Usuario {
         for (Ejercicio value : ejerciciosRelacionados) {
             media += value.getIntensidad();
         }
-        media = media / ejerciciosRelacionados.size();
+        if(!ejerciciosRelacionados.isEmpty()) {
+            media = media / ejerciciosRelacionados.size();
+        }else{
+            media = 0;
+        }
         return media;
     }
 

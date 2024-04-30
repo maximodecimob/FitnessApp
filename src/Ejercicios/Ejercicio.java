@@ -1,11 +1,12 @@
 package Ejercicios;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 /**
  * La clase abstracta Ejercicio representa un tipo genérico de ejercicio físico.
  * Contiene atributos comunes a todos los tipos de ejercicios, como nombre, intensidad y fecha.
  */
-public abstract class Ejercicio {
+public abstract class Ejercicio implements Serializable {
 
     /** El nombre del ejercicio. */
     protected String nombre;
@@ -63,7 +64,7 @@ public abstract class Ejercicio {
      * @return el número de calorías quemadas durante el ejercicio
      */
     public abstract double calcularCalorias(double peso);
-
+    public abstract String getDatosInforme();
     /**
      * Obtiene una representación en forma de cadena del objeto Ejercicio.
      *

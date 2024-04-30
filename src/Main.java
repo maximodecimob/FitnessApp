@@ -1,5 +1,5 @@
 /*
-Titulo: Práctica 2 - FitnessApp
+Titulo: Práctica 3 - FitnessApp
 
 Desarrollado por:
 Equipo 2 INF-A
@@ -17,4 +17,5 @@ public class Main {
     public static void main(String[] args) {
         ProgramaPrincipal.menuGeneral();
     }
+
 }

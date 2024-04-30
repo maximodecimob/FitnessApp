@@ -3,8 +3,11 @@ import Ejercicios.Ejercicio;
 import Ejercicios.Flexibilidad;
 import Ejercicios.Fuerza;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +29,7 @@ public class MenuUsuario {
             // Mostrar el menú
             mostrarMenu();
             // Solicitar al usuario que ingrese una opción del menú
-            menu = PedirDatos.pedirNumeroIntMaxMin(1, 11);
+            menu = PedirDatos.pedirNumeroIntMaxMin(1, 12);
             // Procesar la opción seleccionada por el usuario
             switch (menu) {
                 case 1 -> anadirEjercicio(usuario);
@@ -39,12 +42,43 @@ public class MenuUsuario {
                 case 8 -> obtenerEjerciciosEntreFechas(usuario);
                 case 9 -> calcularIntensidadMediaEjercicios(usuario);
                 case 10 -> calcularIntensidadMediaFecha(usuario);
-                case 11 -> {
+                case 11 -> informeEjercicios(usuario);
+                case 12 -> {
                     System.out.println("Volviendo al menú anterior...");
                     menuUsu = false;
                 }
             }
         } while (menuUsu);
+    }
+
+    private static void informeEjercicios(Usuario usuario) {
+        try {
+            LocalDate fecha = LocalDate.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy_MM_dd");
+            String fechaFormateada = fecha.format(formato);
+            PrintWriter pw = new PrintWriter("informe_"+usuario.getNombre()+"_"+fechaFormateada+".txt");
+            pw.println("-------------------------------------------------------------------------");
+            pw.println("        | INFORME DE EJERCICIOS |");
+            pw.println("-------------------------------------------------------------------------");
+            pw.println("USUARIO: "+usuario.getNombre());
+            pw.println("Edad: "+usuario.getEdad());
+            pw.println("Peso: "+usuario.getPeso()+" Kg");
+            pw.println("Nivel: "+usuario.getNivel());
+            pw.println("Ejercicios Realizados:");
+            pw.println("Fecha       Ejercicio    Intensidad   Características");
+            DateTimeFormatter formatear = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            String fechaConFormato;
+            for (Ejercicio ejercicio : usuario.getEjerciciosRelacionados()) {
+                fechaConFormato=ejercicio.getFecha().format(formatear);
+                pw.printf("%-11s %-12s %-12s %-30s\n", fechaConFormato, ejercicio.getNombre(), ejercicio.getIntensidad(), ejercicio.getDatosInforme());
+            }
+            pw.println("Total calorías consumidas: "+usuario.calcularConsumoCaloricoTotal()+" Kcal");
+            pw.println("Media de Intensidad de los ejercicios: "+usuario.calcularPromedioIntensidad());
+            pw.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("No se ha podido abrir el archivo.");
+        }
+
     }
 
     // Métodos privados auxiliares para manejar las opciones del menú
@@ -63,7 +97,8 @@ public class MenuUsuario {
         System.out.println("8. Obtener todos los ejercicios, con toda su información, realizados entre dos fechas.");
         System.out.println("9. Calcular la intensidad media de los ejercicios totales realizados.");
         System.out.println("10. Calcular la intensidad media de los ejercicios realizados desde una fecha.");
-        System.out.println("11. Volver al menú anterior.");
+        System.out.println("11. Generar un informe con los ejercicios realizados por ti");
+        System.out.println("12. Volver al menú anterior.");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println();
         System.out.println("Ingrese el número de la opción deseada:");

@@ -1,11 +1,12 @@
 package Ejercicios;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 /**
  * La clase Fuerza representa un tipo de ejercicio diseñado para aumentar la fuerza muscular.
  * Hereda de la clase Ejercicio e incluye atributos específicos como el peso levantado y el número de repeticiones.
  */
-public class Fuerza extends Ejercicio {
+public class Fuerza extends Ejercicio implements Serializable {
 
     /** El peso levantado durante el ejercicio de fuerza, en kilogramos. */
     private double peso;
@@ -35,10 +36,15 @@ public class Fuerza extends Ejercicio {
      */
     @Override
     public String toString() {
-        return "El ejercicio de Fuerza '" + nombre + "' " +
-                "consistió en levantar un peso de " + peso + " kilogramos durante " +
-                repeticiones + " repeticiones, con una intensidad de " + intensidad + " sobre 8, realizado en la fecha " + fecha + ".";
-    }
+        if (repeticiones == 1) {
+            return "El ejercicio de Fuerza '" + nombre + "' " +
+                    "consistió en levantar un peso de " + peso + " kilogramos durante " +
+                    repeticiones + " repetición, con una intensidad de " + intensidad + " sobre 8, realizado en la fecha " + fecha + ".";
+        } else {
+            return "El ejercicio de Fuerza '" + nombre + "' " +
+                    "consistió en levantar un peso de " + peso + " kilogramos durante " +
+                    repeticiones + " repeticiones, con una intensidad de " + intensidad + " sobre 8, realizado en la fecha " + fecha + ".";
+        }    }
 
     /**
      * Calcula las calorías quemadas durante el ejercicio de fuerza.
@@ -52,6 +58,15 @@ public class Fuerza extends Ejercicio {
         double met = this.peso * 0.1 * intensidad * repeticiones;
         calorias = 0.0175 * peso * met;
         return calorias;
+    }
+
+    @Override
+    public String getDatosInforme() {
+        if (repeticiones == 1) {
+            return peso + " Kg " + repeticiones + " repetición.";
+        } else {
+            return peso + " Kg " + repeticiones + " repeticiones.";
+        }
     }
 }
 

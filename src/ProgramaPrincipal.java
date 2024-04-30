@@ -1,3 +1,6 @@
+import java.io.*;
+import java.util.ArrayList;
+
 /**
  * Clase que representa el programa principal de FitnessApp.
  * Permite registrar usuarios, iniciar sesión y mostrar un menú general de opciones.
@@ -9,6 +12,7 @@ public class ProgramaPrincipal {
      * Permite al usuario registrar un nuevo usuario, iniciar sesión o salir del programa.
      */
     public static void menuGeneral() {
+        String nombreArchivo = "registroUsuarios.dat";
         int menu;
         boolean fitnessApp = true, primera = true;
         RegistroUsuarios registroUsuarios = new RegistroUsuarios();
@@ -21,9 +25,12 @@ public class ProgramaPrincipal {
             }
             System.out.println("1. Registrar usuario");
             System.out.println("2. Iniciar sesión");
-            System.out.println("3. Salir");
-            menu = PedirDatos.pedirNumeroIntMaxMin(1, 3);
-            registroUsuarios = switchMenu(menu, registroUsuarios);
+            System.out.println("3. Guardar los datos en un archivo");
+            System.out.println("4. Descargar información de todos los usuarios");
+            System.out.println("5. Hacer un informe general de todos los usuarios");
+            System.out.println("6. Salir");
+            menu = PedirDatos.pedirNumeroIntMaxMin(1, 6);
+            registroUsuarios = switchMenu(menu, registroUsuarios, nombreArchivo);
             if (registroUsuarios == null) {
                 fitnessApp = false;
             }
@@ -37,19 +44,78 @@ public class ProgramaPrincipal {
      * @param registroUsuarios el registro de usuarios de FitnessApp
      * @return el registro de usuarios actualizado
      */
-    private static RegistroUsuarios switchMenu(int menu, RegistroUsuarios registroUsuarios) {
+    private static RegistroUsuarios switchMenu(int menu, RegistroUsuarios registroUsuarios,String nombreArchivo) {
         switch (menu) {
             case (1):
                 registrarse(registroUsuarios);
                 break;
             case (2):
-                registroUsuarios = inicioSesion(registroUsuarios);
+                registroUsuarios = inicioSesion(registroUsuarios,nombreArchivo);
                 break;
             case (3):
+                guardarDatos(registroUsuarios,nombreArchivo);
+                break;
+            case(4):
+                registroUsuarios = leerDatos(nombreArchivo);
+                break;
+            case(5):
+                generarInformeGeneral(registroUsuarios);
+                break;
+            case(6):
                 registroUsuarios = null;
                 break;
         }
         return registroUsuarios;
+    }
+
+    private static void generarInformeGeneral(RegistroUsuarios registroUsuarios) {
+        try {
+            PrintWriter pw = new PrintWriter("Informe.txt");
+            pw.println("------------------------------------------------------------------------");
+            pw.println("| NOMBRE                | EJERCICIOS  | NIVEL       | MEDIA INTENSIDAD |");
+            pw.println("------------------------------------------------------------------------");
+            ArrayList<Usuario> usuarios= registroUsuarios.getUsuarios();
+            if( !usuarios.isEmpty()){
+                for (Usuario usu : usuarios){
+                    pw.printf("| %-22s| %-12d| %-12s| %-17d|\n", usu.getNombre(), usu.getEjerciciosSize(), usu.getNivel(), usu.calcularPromedioIntensidad());
+                }
+                pw.println("------------------------------------------------------------------------");
+            }
+            pw.close();
+            System.out.println("Informe creado");
+        } catch (FileNotFoundException e) {
+            System.out.println("No se ha podido abrir el archivo.");
+        }
+
+    }
+
+    private static RegistroUsuarios leerDatos(String nombreArchivo) {
+        try {
+            ObjectInputStream archivo = new ObjectInputStream(new FileInputStream(nombreArchivo));
+            RegistroUsuarios registro = (RegistroUsuarios)archivo.readObject();
+            archivo.close();
+            System.out.println("Datos descargados correctamente");
+            return registro;
+        } catch (IOException var3) {
+            System.out.println("No se ha podido abrir el archivo para leer los datos.");
+        } catch (ClassNotFoundException var4) {
+            System.out.println("El archivo no contiene información de los usuarios.");
+        }
+        return new RegistroUsuarios();
+    }
+
+    private static void guardarDatos(RegistroUsuarios registroUsuarios,String nombreArchivo) {
+        try {
+            FileOutputStream file = new FileOutputStream(nombreArchivo);
+            ObjectOutputStream archivo = new ObjectOutputStream(file);
+            archivo.writeObject(registroUsuarios);
+            archivo.close();
+            System.out.println("Datos guardados correctamente");
+        } catch (IOException var4) {
+            System.out.println("No se ha podido abrir el archivo para guardar los datos.");
+            var4.printStackTrace();
+        }
+
     }
 
     /**
@@ -58,7 +124,7 @@ public class ProgramaPrincipal {
      * @param registroUsuarios el registro de usuarios de FitnessApp
      * @return el registro de usuarios actualizado después de iniciar sesión
      */
-    private static RegistroUsuarios inicioSesion(RegistroUsuarios registroUsuarios) {
+    private static RegistroUsuarios inicioSesion(RegistroUsuarios registroUsuarios,String nombreArchivo) {
         String nombre;
         Usuario usuario;
         int menu;
@@ -69,8 +135,12 @@ public class ProgramaPrincipal {
             System.out.println("Necesitas iniciar sesión si no tienes usuario si tienes usuario introduce bien tu nombre");
             System.out.println("Si no estas registrado y deseas registrarte presiona 1 ");
             System.out.println("Si tienes usuario y has introducido mal tu nombre presiona 2 ");
-            menu = PedirDatos.pedirNumeroIntMaxMin(1, 2);
-            registroUsuarios = switchMenu(menu, registroUsuarios);
+            System.out.println("Para volver al menu anterior presione 3");
+            menu = PedirDatos.pedirNumeroIntMaxMin(1, 3);
+            if(menu == 3){
+                menuGeneral();
+            }
+            registroUsuarios = switchMenu(menu, registroUsuarios, nombreArchivo);
         } else {
             MenuUsuario.menuUsuario(usuario);
             registroUsuarios.modificar(usuario);// Cuando el usuario cierra sesión se actualiza

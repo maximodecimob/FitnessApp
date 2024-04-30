@@ -1,12 +1,13 @@
 package Ejercicios;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * La clase Flexibilidad representa un tipo de ejercicio de estiramiento para mejorar la flexibilidad del cuerpo.
  * Hereda de la clase Ejercicio e incluye atributos específicos como el número de repeticiones.
  */
-public class Flexibilidad extends Ejercicio {
+public class Flexibilidad extends Ejercicio implements Serializable {
 
     /** El número de repeticiones del ejercicio de flexibilidad. */
     private int repeticiones;
@@ -31,9 +32,15 @@ public class Flexibilidad extends Ejercicio {
      */
     @Override
     public String toString() {
-        return "Para el ejercicio de Flexibilidad llamado '" + nombre + "'" +
-                ", se realizaron " + repeticiones + " repeticiones con una intensidad de " + intensidad + " sobre 8" +
-                ", en la fecha " + fecha + ".";
+        if (repeticiones == 1) {
+            return "Para el ejercicio de Flexibilidad llamado '" + nombre + "'" +
+                    ", se realizó " + repeticiones + " repetición con una intensidad de " + intensidad + " sobre 8" +
+                    ", en la fecha " + fecha + ".";
+        } else {
+            return "Para el ejercicio de Flexibilidad llamado '" + nombre + "'" +
+                    ", se realizaron " + repeticiones + " repeticiones con una intensidad de " + intensidad + " sobre 8" +
+                    ", en la fecha " + fecha + ".";
+        }
     }
 
     /**
@@ -48,5 +55,14 @@ public class Flexibilidad extends Ejercicio {
         double met = repeticiones * 0.1;
         calorias = 0.0175 * peso * met;
         return calorias;
+    }
+
+    @Override
+    public String getDatosInforme() {
+        if (repeticiones == 1) {
+            return repeticiones + " repetición.";
+        } else {
+            return repeticiones + " repeticiones.";
+        }
     }
 }

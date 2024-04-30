@@ -1,11 +1,12 @@
 package Ejercicios;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 /**
  * La clase Cardio representa un tipo de ejercicio cardiovascular, que hereda de la clase Ejercicio.
  * Contiene atributos específicos como la distancia recorrida y la duración del ejercicio.
  */
-public class Cardio extends Ejercicio {
+public class Cardio extends Ejercicio implements Serializable {
 
     /** La distancia recorrida durante el ejercicio de cardio, en kilómetros. */
     private double distancia;
@@ -35,9 +36,11 @@ public class Cardio extends Ejercicio {
      */
     @Override
     public String toString() {
-        return "El ejercicio de Cardio '" + nombre + "' consistió en correr una distancia de " + distancia + " kilómetros " +
-                "durante " + duracion + " minutos, con una intensidad de " + intensidad + " sobre 8, realizado en la fecha " + fecha + ".";
-    }
+        String distanciaString = distancia == 1 ? "kilómetro" : "kilómetros";
+        String duracionString = duracion == 1 ? "minuto" : "minutos";
+
+        return "El ejercicio de Cardio '" + nombre + "' consistió en correr una distancia de " + distancia + " " + distanciaString +
+                " durante " + duracion + " " + duracionString + ", con una intensidad de " + intensidad + " sobre 8, realizado en la fecha " + fecha + ".";    }
 
     /**
      * Calcula las calorías quemadas durante el ejercicio de cardio.
@@ -51,6 +54,11 @@ public class Cardio extends Ejercicio {
         double met = distancia * intensidad * duracion;
         calorias = 0.0175 * peso * met;
         return calorias;
+    }
+
+    @Override
+    public String getDatosInforme() {
+        return distancia+" Km "+duracion+" min.";
     }
 }
 
