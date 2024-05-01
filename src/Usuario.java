@@ -40,6 +40,10 @@ public class Usuario implements Serializable {
             throw new Exception("Nivel");
         } else if (Objects.equals(nombre, "")) {
             throw new Exception("Nombre");
+        } else if (edad<0) {
+            throw new Exception("Edad");
+        } else if (peso<0) {
+            throw new Exception("Peso");
         }
         this.nombre = nombre;
         this.edad = edad;

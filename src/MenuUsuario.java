@@ -64,16 +64,20 @@ public class MenuUsuario {
             pw.println("Edad: "+usuario.getEdad());
             pw.println("Peso: "+usuario.getPeso()+" Kg");
             pw.println("Nivel: "+usuario.getNivel());
-            pw.println("Ejercicios Realizados:");
-            pw.println("Fecha       Ejercicio    Intensidad   Características");
-            DateTimeFormatter formatear = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-            String fechaConFormato;
-            for (Ejercicio ejercicio : usuario.getEjerciciosRelacionados()) {
-                fechaConFormato=ejercicio.getFecha().format(formatear);
-                pw.printf("%-11s %-12s %-12s %-30s\n", fechaConFormato, ejercicio.getNombre(), ejercicio.getIntensidad(), ejercicio.getDatosInforme());
+            if(usuario.getEjerciciosRelacionados()!=null) {
+                pw.println("Ejercicios Realizados:");
+                pw.println("Fecha       Ejercicio    Intensidad   Características");
+                DateTimeFormatter formatear = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                String fechaConFormato;
+                for (Ejercicio ejercicio : usuario.getEjerciciosRelacionados()) {
+                    fechaConFormato = ejercicio.getFecha().format(formatear);
+                    pw.printf("%-11s %-12s %-12s %-30s\n", fechaConFormato, ejercicio.getNombre(), ejercicio.getIntensidad(), ejercicio.getDatosInforme());
+                }
+                pw.println("Total calorías consumidas: " + usuario.calcularConsumoCaloricoTotal() + " Kcal");
+                pw.println("Media de Intensidad de los ejercicios: " + usuario.calcularPromedioIntensidad());
+            }else{
+                pw.println("No hay ejercicios realizados");
             }
-            pw.println("Total calorías consumidas: "+usuario.calcularConsumoCaloricoTotal()+" Kcal");
-            pw.println("Media de Intensidad de los ejercicios: "+usuario.calcularPromedioIntensidad());
             pw.close();
         } catch (FileNotFoundException e) {
             System.out.println("No se ha podido abrir el archivo.");
@@ -288,8 +292,34 @@ public class MenuUsuario {
         System.out.println("Introduce el número de repeticiones ");
         int repes = PedirDatos.pedirNumeroIntMin(0);
         // Crea un nuevo ejercicio de fuerza y lo agrega al usuario
-        Fuerza fuerza = new Fuerza(nombre, intensidad, fecha, peso, repes);
-        usuario.agregarEjercicioRealizado(fuerza);
+        boolean intentarNuevamente = true;
+        while (intentarNuevamente) {
+            try {
+                Fuerza fuerza = new Fuerza(nombre, intensidad, fecha, peso, repes);
+                usuario.agregarEjercicioRealizado(fuerza);
+                intentarNuevamente = false; // No se lanzó ninguna excepción, podemos salir del bucle
+            } catch (Exception e) {
+                if (e.getMessage().equals("Nombre")) {
+                    System.out.println("Has introducido un nombre vacío, por favor introdúcelo nuevamente");
+                    nombre = PedirDatos.pedirPalabra("el nombre");
+                } else if (e.getMessage().equals("Intensidad")) {
+                    System.out.println("Has introducido una intensidad incorrecta, corrígela");
+                    intensidad = PedirDatos.pedirNumeroIntMaxMin(1,8);
+                } else if (e.getMessage().equals("Fecha")) {
+                    System.out.println("Has introducido una fecha inválida, por favor introdúcela nuevamente");
+                    fecha = PedirDatos.pedirFecha();
+                } else if (e.getMessage().equals("Peso")) {
+                    System.out.println("Has introducido un peso inválido, por favor introdúcelo nuevamente");
+                    peso = PedirDatos.pedirNumeroDoubleMin(0);
+                } else if (e.getMessage().equals("Repeticiones")) {
+                    System.out.println("Has introducido un número de repeticiones negativo, por favor introdúcelo nuevamente");
+                    repes = PedirDatos.pedirNumeroIntMin(0);
+                } else {
+                    System.out.println("Error no esperado");
+                }
+            }
+        }
+
     }
 
     /**
@@ -305,8 +335,31 @@ public class MenuUsuario {
         System.out.println("Introduce las repeticiones ");
         int repeticiones = PedirDatos.pedirNumeroIntMin(0);
         // Crea un nuevo ejercicio de flexibilidad y lo agrega al usuario
-        Flexibilidad flexibilidad = new Flexibilidad(nombre, intensidad, fecha, repeticiones);
-        usuario.agregarEjercicioRealizado(flexibilidad);
+        boolean intentarNuevamente = true;
+        while (intentarNuevamente) {
+            try {
+                Flexibilidad flexibilidad = new Flexibilidad(nombre, intensidad, fecha, repeticiones);
+                usuario.agregarEjercicioRealizado(flexibilidad);
+                intentarNuevamente = false; // No se lanzó ninguna excepción, podemos salir del bucle
+            } catch (Exception e) {
+                if (e.getMessage().equals("Nombre")) {
+                    System.out.println("Has introducido un nombre vacío, por favor introdúcelo nuevamente");
+                    nombre = PedirDatos.pedirPalabra("el nombre");
+                } else if (e.getMessage().equals("Intensidad")) {
+                    System.out.println("Has introducido una intensidad incorrecta, corrígela");
+                    intensidad = PedirDatos.pedirNumeroIntMaxMin(1,8);
+                } else if (e.getMessage().equals("Fecha")) {
+                    System.out.println("Has introducido una fecha inválida, por favor introdúcela nuevamente");
+                    fecha = PedirDatos.pedirFecha();
+                } else if (e.getMessage().equals("Repeticiones")) {
+                    System.out.println("Has introducido un número de repeticiones negativo, por favor introdúcelo nuevamente");
+                    repeticiones = PedirDatos.pedirNumeroIntMin(0);
+                } else {
+                    System.out.println("Error no esperado");
+                }
+            }
+        }
+
     }
 
     /**
@@ -325,7 +378,32 @@ public class MenuUsuario {
         System.out.println("Ingrese la duración en minutos");
         double duracion = PedirDatos.pedirNumeroDoubleMin(0);
         // Crea un nuevo ejercicio de cardio y lo agrega al usuario
+        boolean intentarNuevamente = true;
+        while(intentarNuevamente){
+        try{
         Cardio cardio = new Cardio(nombre, intensidad, fecha, distancia, duracion);
         usuario.agregarEjercicioRealizado(cardio);
+        intentarNuevamente = false;
+        }catch (Exception e){
+            if (e.getMessage().equals("Nombre")) {
+                System.out.println("Has introducido un nombre vacío, por favor introdúcelo nuevamente");
+                nombre = PedirDatos.pedirPalabra("el nombre");
+            } else if (e.getMessage().equals("Intensidad")) {
+                System.out.println("Has introducido una intensidad incorrecta, corrígela");
+                intensidad = PedirDatos.pedirNumeroIntMaxMin(1,8);
+            } else if (e.getMessage().equals("Fecha")) {
+                System.out.println("Has introducido una fecha inválida, por favor introdúcela nuevamente");
+                fecha = PedirDatos.pedirFecha();
+            } else if (e.getMessage().equals("Distancia")) {
+                System.out.println("Has introducido una distancia negativa, por favor introdúcela nuevamente");
+                distancia = PedirDatos.pedirNumeroDoubleMin(0);
+            } else if (e.getMessage().equals("Duracion")) {
+                System.out.println("Has introducido una duración negativa, por favor introdúcela nuevamente");
+                duracion = PedirDatos.pedirNumeroDoubleMin(0);
+            } else {
+                System.out.println("Error no esperado");
+            }
+            }
+        }
     }
 }

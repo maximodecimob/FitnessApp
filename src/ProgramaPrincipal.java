@@ -80,6 +80,8 @@ public class ProgramaPrincipal {
                     pw.printf("| %-22s| %-12d| %-12s| %-17d|\n", usu.getNombre(), usu.getEjerciciosSize(), usu.getNivel(), usu.calcularPromedioIntensidad());
                 }
                 pw.println("------------------------------------------------------------------------");
+            }else{
+                pw.println("No hay usuarios existentes");
             }
             pw.close();
             System.out.println("Informe creado");
@@ -160,8 +162,30 @@ public class ProgramaPrincipal {
         System.out.println("Introduce la edad: ");
         int edad = PedirDatos.pedirNumeroIntMin(0);
         Nivel nivel = PedirDatos.seleccionarNivel();
-        Usuario nuevoUsuario = new Usuario(nombre, edad, peso, nivel);
-        registroUsuarios.agregarUsuario(nuevoUsuario);
+        boolean intentarNuevamente = true;
+        while (intentarNuevamente) {
+            try {
+                Usuario nuevoUsuario = new Usuario(nombre, edad, peso, nivel);
+                registroUsuarios.agregarUsuario(nuevoUsuario);
+                intentarNuevamente = false; // No se lanzó ninguna excepción, podemos salir del bucle
+            } catch (Exception e) {
+                if (e.getMessage().equals("Nivel")) {
+                    System.out.println("Has introducido un nivel erroneo corrígelo");
+                    nivel = PedirDatos.seleccionarNivel();
+                } else if (e.getMessage().equals("Nombre")) {
+                    System.out.println("Has introducido un nombre vacío tienes que volver a introducirlo");
+                    nombre = PedirDatos.pedirPalabra("el nombre");
+                } else if (e.getMessage().equals("Edad")) {
+                    System.out.println("Has introducido una edad negativa la cual es imposible");
+                    edad = PedirDatos.pedirNumeroIntMin(0);
+                } else if (e.getMessage().equals("Peso")) {
+                    System.out.println("Has introducido un peso imposible ya que es negativo");
+                    peso = PedirDatos.pedirNumeroIntMin(0);
+                } else {
+                    System.out.println("Error no esperado");
+                }
+            }
+        }
         System.out.println("Usuario registrado correctamente");
     }
 }

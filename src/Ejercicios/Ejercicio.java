@@ -58,6 +58,8 @@ public abstract class Ejercicio implements Serializable {
             throw new Exception("Intensidad");
         } else if (Objects.equals(nombre, "")) {
             throw new Exception("Nombre");
+        } else if (fecha == null) {
+            throw new Exception();
         }
         this.nombre = nombre;
         this.intensidad = intensidad;
