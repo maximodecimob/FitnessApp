@@ -1,11 +1,12 @@
 import java.io.*;
 import java.util.ArrayList;
+import Ejercicios.IntensidadIncorrectaException;
 
 /**
  * Clase que representa el programa principal de FitnessApp.
  * Permite registrar usuarios, iniciar sesión y mostrar un menú general de opciones.
  */
-public class ProgramaPrincipal {
+public class ProgramaPrincipal throws IntensidadIncorrectaException {
 
     /**
      * Muestra el menú general de FitnessApp.
@@ -78,13 +79,15 @@ public class ProgramaPrincipal {
             if( !usuarios.isEmpty()){
                 for (Usuario usu : usuarios){
                     pw.printf("| %-22s| %-12d| %-12s| %-17d|\n", usu.getNombre(), usu.getEjerciciosSize(), usu.getNivel(), usu.calcularPromedioIntensidad());
+                    pw.println("------------------------------------------------------------------");
                 }
                 pw.println("------------------------------------------------------------------------");
             }else{
                 pw.println("No hay usuarios existentes");
             }
+            pw.println("------------------------------------------------------------------");
             pw.close();
-            System.out.println("Informe creado");
+            System.out.println("Informe generado correctamente en el archivo 'Informe_general_2024_04_28.txt'");
         } catch (FileNotFoundException e) {
             System.out.println("No se ha podido abrir el archivo.");
         }
