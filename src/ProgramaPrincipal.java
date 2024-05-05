@@ -12,7 +12,7 @@ public class ProgramaPrincipal throws IntensidadIncorrectaException {
      * Muestra el menú general de FitnessApp.
      * Permite al usuario registrar un nuevo usuario, iniciar sesión o salir del programa.
      */
-    public static void menuGeneral() {
+    public static void menuGeneral() throws IntensidadIncorrectaException{
         String nombreArchivo = "registroUsuarios.dat";
         int menu;
         boolean fitnessApp = true, primera = true;
@@ -45,7 +45,7 @@ public class ProgramaPrincipal throws IntensidadIncorrectaException {
      * @param registroUsuarios el registro de usuarios de FitnessApp
      * @return el registro de usuarios actualizado
      */
-    private static RegistroUsuarios switchMenu(int menu, RegistroUsuarios registroUsuarios,String nombreArchivo) {
+    private static RegistroUsuarios switchMenu(int menu, RegistroUsuarios registroUsuarios,String nombreArchivo) throws IntensidadIncorrectaException{
         switch (menu) {
             case (1):
                 registrarse(registroUsuarios);
