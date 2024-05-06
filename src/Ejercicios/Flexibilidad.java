@@ -1,13 +1,12 @@
 package Ejercicios;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * La clase Flexibilidad representa un tipo de ejercicio de estiramiento para mejorar la flexibilidad del cuerpo.
  * Hereda de la clase Ejercicio e incluye atributos específicos como el número de repeticiones.
  */
-public class Flexibilidad extends Ejercicio implements Serializable {
+public class Flexibilidad extends Ejercicio {
 
     /** El número de repeticiones del ejercicio de flexibilidad. */
     private int repeticiones;
@@ -20,11 +19,8 @@ public class Flexibilidad extends Ejercicio implements Serializable {
      * @param fecha la fecha en la que se realizó el ejercicio
      * @param repeticiones el número de repeticiones del ejercicio de flexibilidad
      */
-    public Flexibilidad(String nombre, int intensidad, LocalDate fecha, int repeticiones) throws Exception {
+    public Flexibilidad(String nombre, int intensidad, LocalDate fecha, int repeticiones) throws Ejercicios.IntensidadIncorrectaException, Exception {
         super(nombre, intensidad, fecha);
-        if(repeticiones<0){
-            throw new Exception("Repeticiones");
-        }
         this.repeticiones = repeticiones;
     }
 
@@ -35,15 +31,9 @@ public class Flexibilidad extends Ejercicio implements Serializable {
      */
     @Override
     public String toString() {
-        if (repeticiones == 1) {
-            return "Para el ejercicio de Flexibilidad llamado '" + nombre + "'" +
-                    ", se realizó " + repeticiones + " repetición con una intensidad de " + intensidad + " sobre 8" +
-                    ", en la fecha " + fecha + ".";
-        } else {
-            return "Para el ejercicio de Flexibilidad llamado '" + nombre + "'" +
-                    ", se realizaron " + repeticiones + " repeticiones con una intensidad de " + intensidad + " sobre 8" +
-                    ", en la fecha " + fecha + ".";
-        }
+        return "Para el ejercicio de Flexibilidad llamado '" + nombre + "'" +
+                ", se realizaron " + repeticiones + " repeticiones con una intensidad de " + intensidad + " sobre 8" +
+                ", en la fecha " + fecha + ".";
     }
 
     /**
@@ -62,10 +52,12 @@ public class Flexibilidad extends Ejercicio implements Serializable {
 
     @Override
     public String getDatosInforme() {
-        if (repeticiones == 1) {
-            return repeticiones + " repetición.";
-        } else {
-            return repeticiones + " repeticiones.";
+        return null;
+    }
+
+    public static class IntensidadIncorrectaException extends Throwable{
+        public IntensidadIncorrectaException(String message) {
+            super(message);
         }
     }
 }
