@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +14,6 @@ public class ProgramaPrincipal {
      * Permite al usuario registrar un nuevo usuario, iniciar sesión o salir del programa.
      */
     public static void menuGeneral() {
-        String nombreArchivo = "registroUsuarios.dat";
         int menu;
         boolean fitnessApp = true, primera = true;
         RegistroUsuarios registroUsuarios = new RegistroUsuarios();
@@ -30,7 +31,7 @@ public class ProgramaPrincipal {
             System.out.println("5. Hacer un informe general de todos los usuarios");
             System.out.println("6. Salir");
             menu = PedirDatos.pedirNumeroIntMaxMin(1, 6);
-            registroUsuarios = switchMenu(menu, registroUsuarios, nombreArchivo);
+            registroUsuarios = switchMenu(menu, registroUsuarios);
             if (registroUsuarios == null) {
                 fitnessApp = false;
             }
@@ -44,19 +45,19 @@ public class ProgramaPrincipal {
      * @param registroUsuarios el registro de usuarios de FitnessApp
      * @return el registro de usuarios actualizado
      */
-    private static RegistroUsuarios switchMenu(int menu, RegistroUsuarios registroUsuarios,String nombreArchivo) {
+    private static RegistroUsuarios switchMenu(int menu, RegistroUsuarios registroUsuarios) {
         switch (menu) {
             case (1):
                 registrarse(registroUsuarios);
                 break;
             case (2):
-                registroUsuarios = inicioSesion(registroUsuarios,nombreArchivo);
+                registroUsuarios = inicioSesion(registroUsuarios);
                 break;
             case (3):
-                guardarDatos(registroUsuarios,nombreArchivo);
+                guardarDatos(registroUsuarios);
                 break;
             case(4):
-                registroUsuarios = leerDatos(nombreArchivo);
+                registroUsuarios = leerDatos();
                 break;
             case(5):
                 generarInformeGeneral(registroUsuarios);
@@ -70,7 +71,10 @@ public class ProgramaPrincipal {
 
     private static void generarInformeGeneral(RegistroUsuarios registroUsuarios) {
         try {
-            PrintWriter pw = new PrintWriter("Informe.txt");
+            LocalDate fecha = LocalDate.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy_MM_dd");
+            String fechaFormateada = fecha.format(formato);
+            PrintWriter pw = new PrintWriter("Informe_general_"+fechaFormateada+".txt");
             pw.println("------------------------------------------------------------------------");
             pw.println("| NOMBRE                | EJERCICIOS  | NIVEL       | MEDIA INTENSIDAD |");
             pw.println("------------------------------------------------------------------------");
@@ -91,9 +95,9 @@ public class ProgramaPrincipal {
 
     }
 
-    private static RegistroUsuarios leerDatos(String nombreArchivo) {
+    private static RegistroUsuarios leerDatos() {
         try {
-            ObjectInputStream archivo = new ObjectInputStream(new FileInputStream(nombreArchivo));
+            ObjectInputStream archivo = new ObjectInputStream(new FileInputStream("registroUsuarios.dat"));
             RegistroUsuarios registro = (RegistroUsuarios)archivo.readObject();
             archivo.close();
             System.out.println("Datos descargados correctamente");
@@ -106,9 +110,9 @@ public class ProgramaPrincipal {
         return new RegistroUsuarios();
     }
 
-    private static void guardarDatos(RegistroUsuarios registroUsuarios,String nombreArchivo) {
+    private static void guardarDatos(RegistroUsuarios registroUsuarios) {
         try {
-            FileOutputStream file = new FileOutputStream(nombreArchivo);
+            FileOutputStream file = new FileOutputStream("registroUsuarios.dat");
             ObjectOutputStream archivo = new ObjectOutputStream(file);
             archivo.writeObject(registroUsuarios);
             archivo.close();
@@ -126,7 +130,7 @@ public class ProgramaPrincipal {
      * @param registroUsuarios el registro de usuarios de FitnessApp
      * @return el registro de usuarios actualizado después de iniciar sesión
      */
-    private static RegistroUsuarios inicioSesion(RegistroUsuarios registroUsuarios,String nombreArchivo) {
+    private static RegistroUsuarios inicioSesion(RegistroUsuarios registroUsuarios) {
         String nombre;
         Usuario usuario;
         int menu;
@@ -142,7 +146,7 @@ public class ProgramaPrincipal {
             if(menu == 3){
                 menuGeneral();
             }
-            registroUsuarios = switchMenu(menu, registroUsuarios, nombreArchivo);
+            registroUsuarios = switchMenu(menu, registroUsuarios);
         } else {
             MenuUsuario.menuUsuario(usuario);
             registroUsuarios.modificar(usuario);// Cuando el usuario cierra sesión se actualiza
