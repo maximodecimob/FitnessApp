@@ -99,15 +99,17 @@ public class Usuario implements Serializable {
      * @return el promedio de intensidad de los ejercicios realizados por el usuario
      */
     public int calcularPromedioIntensidad() {
-        if (ejerciciosRelacionados.isEmpty()) {
-            return 0;
-        }
-
         int media = 0;
-        for (Ejercicio ejercicio : ejerciciosRelacionados) {
-            media += ejercicio.getIntensidad();
+
+        for (Ejercicio value : ejerciciosRelacionados) {
+            media += value.getIntensidad();
         }
-        return media / ejerciciosRelacionados.size();
+        if(!ejerciciosRelacionados.isEmpty()) {
+            media = media / ejerciciosRelacionados.size();
+        }else{
+            media = 0;
+        }
+        return media;
     }
 
     /**
