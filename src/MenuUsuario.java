@@ -1,7 +1,4 @@
-import Ejercicios.Cardio;
-import Ejercicios.Ejercicio;
-import Ejercicios.Flexibilidad;
-import Ejercicios.Fuerza;
+import Ejercicios.*;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -317,6 +314,8 @@ public class MenuUsuario {
                 } else {
                     System.out.println("Error no esperado");
                 }
+            } catch (IntensidadIncorrectaException e) {
+                throw new RuntimeException(e);
             }
         }
 
@@ -357,6 +356,8 @@ public class MenuUsuario {
                 } else {
                     System.out.println("Error no esperado");
                 }
+            } catch (IntensidadIncorrectaException e) {
+                throw new RuntimeException(e);
             }
         }
 
@@ -380,29 +381,31 @@ public class MenuUsuario {
         // Crea un nuevo ejercicio de cardio y lo agrega al usuario
         boolean intentarNuevamente = true;
         while(intentarNuevamente){
-        try{
-        Cardio cardio = new Cardio(nombre, intensidad, fecha, distancia, duracion);
-        usuario.agregarEjercicioRealizado(cardio);
-        intentarNuevamente = false;
-        }catch (Exception e){
-            if (e.getMessage().equals("Nombre")) {
-                System.out.println("Has introducido un nombre vacío, por favor introdúcelo nuevamente");
-                nombre = PedirDatos.pedirPalabra("el nombre");
-            } else if (e.getMessage().equals("Intensidad")) {
-                System.out.println("Has introducido una intensidad incorrecta, corrígela");
-                intensidad = PedirDatos.pedirNumeroIntMaxMin(1,8);
-            } else if (e.getMessage().equals("Fecha")) {
-                System.out.println("Has introducido una fecha inválida, por favor introdúcela nuevamente");
-                fecha = PedirDatos.pedirFecha();
-            } else if (e.getMessage().equals("Distancia")) {
-                System.out.println("Has introducido una distancia negativa, por favor introdúcela nuevamente");
-                distancia = PedirDatos.pedirNumeroDoubleMin(0);
-            } else if (e.getMessage().equals("Duracion")) {
-                System.out.println("Has introducido una duración negativa, por favor introdúcela nuevamente");
-                duracion = PedirDatos.pedirNumeroDoubleMin(0);
-            } else {
-                System.out.println("Error no esperado");
-            }
+            try{
+                Cardio cardio = new Cardio(nombre, intensidad, fecha, distancia, duracion);
+                usuario.agregarEjercicioRealizado(cardio);
+                intentarNuevamente = false;
+            }catch (Exception e){
+                if (e.getMessage().equals("Nombre")) {
+                    System.out.println("Has introducido un nombre vacío, por favor introdúcelo nuevamente");
+                    nombre = PedirDatos.pedirPalabra("el nombre");
+                } else if (e.getMessage().equals("Intensidad")) {
+                    System.out.println("Has introducido una intensidad incorrecta, corrígela");
+                    intensidad = PedirDatos.pedirNumeroIntMaxMin(1,8);
+                } else if (e.getMessage().equals("Fecha")) {
+                    System.out.println("Has introducido una fecha inválida, por favor introdúcela nuevamente");
+                    fecha = PedirDatos.pedirFecha();
+                } else if (e.getMessage().equals("Distancia")) {
+                    System.out.println("Has introducido una distancia negativa, por favor introdúcela nuevamente");
+                    distancia = PedirDatos.pedirNumeroDoubleMin(0);
+                } else if (e.getMessage().equals("Duracion")) {
+                    System.out.println("Has introducido una duración negativa, por favor introdúcela nuevamente");
+                    duracion = PedirDatos.pedirNumeroDoubleMin(0);
+                } else {
+                    System.out.println("Error no esperado");
+                }
+            } catch (IntensidadIncorrectaException e) {
+                throw new RuntimeException(e);
             }
         }
     }
