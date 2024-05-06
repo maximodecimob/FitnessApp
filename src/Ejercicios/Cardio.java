@@ -1,12 +1,11 @@
 package Ejercicios;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 /**
  * La clase Cardio representa un tipo de ejercicio cardiovascular, que hereda de la clase Ejercicio.
  * Contiene atributos específicos como la distancia recorrida y la duración del ejercicio.
  */
-public class Cardio extends Ejercicio implements Serializable {
+public class Cardio extends Ejercicio {
 
     /** La distancia recorrida durante el ejercicio de cardio, en kilómetros. */
     private double distancia;
@@ -23,13 +22,8 @@ public class Cardio extends Ejercicio implements Serializable {
      * @param distancia la distancia recorrida durante el ejercicio, en kilómetros
      * @param duracion la duración del ejercicio, en minutos
      */
-    public Cardio(String nombre, int intensidad, LocalDate fecha, double distancia, double duracion) throws Exception {
+    public Cardio(String nombre, int intensidad, LocalDate fecha, double distancia, double duracion) throws IntensidadIncorrectaException, Exception {
         super(nombre, intensidad, fecha);
-        if(distancia<0){
-            throw new Exception("Distancia");
-        } else if (duracion<0) {
-            throw new Exception("Duración");
-        }
         this.distancia = distancia;
         this.duracion = duracion;
     }
@@ -41,11 +35,9 @@ public class Cardio extends Ejercicio implements Serializable {
      */
     @Override
     public String toString() {
-        String distanciaString = distancia == 1 ? "kilómetro" : "kilómetros";
-        String duracionString = duracion == 1 ? "minuto" : "minutos";
-
-        return "El ejercicio de Cardio '" + nombre + "' consistió en correr una distancia de " + distancia + " " + distanciaString +
-                " durante " + duracion + " " + duracionString + ", con una intensidad de " + intensidad + " sobre 8, realizado en la fecha " + fecha + ".";    }
+        return "El ejercicio de Cardio '" + nombre + "' consistió en correr una distancia de " + distancia + " kilómetros " +
+                "durante " + duracion + " minutos, con una intensidad de " + intensidad + " sobre 8, realizado en la fecha " + fecha + ".";
+    }
 
     /**
      * Calcula las calorías quemadas durante el ejercicio de cardio.
@@ -63,7 +55,6 @@ public class Cardio extends Ejercicio implements Serializable {
 
     @Override
     public String getDatosInforme() {
-        return distancia+" Km "+duracion+" min.";
+        return null;
     }
 }
-
