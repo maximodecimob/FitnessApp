@@ -60,7 +60,7 @@ public abstract class Ejercicio implements Serializable {
         if(intensidad>8||intensidad<1){
             throw new IntensidadIncorrectaException("Intensidad incorrecta. Debe ser un número entero entre 1 y 8 inclusive.");
         } else if (Objects.equals(nombre, "") || fecha == null) {
-            throw new ConjuntoVacioException("No ha introducido nada. Porfavor, introduzca correctamente los datos");
+            throw new ConjuntoVacioException("No ha introducido nada en fecha o en nombre.");
         }
         this.nombre = nombre;
         this.intensidad = intensidad;
