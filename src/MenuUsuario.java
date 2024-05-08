@@ -29,7 +29,7 @@ public class MenuUsuario {
             // Mostrar el menú
             mostrarMenu();
             // Solicitar al usuario que ingrese una opción del menú
-            menu = PedirDatos.pedirNumeroIntMaxMin(1, 12);
+            menu = PedirDatos.pedirNumeroIntMaxMin(1, 12,true);
             // Procesar la opción seleccionada por el usuario
             switch (menu) {
                 case 1 -> anadirEjercicio(usuario);
@@ -164,7 +164,7 @@ public class MenuUsuario {
         System.out.println("1.- Cardio ");
         System.out.println("2.- Flexibilidad ");
         System.out.println("3.-Fuerza ");
-        int opcion = PedirDatos.pedirNumeroIntMaxMin(1, 3);
+        int opcion = PedirDatos.pedirNumeroIntMaxMin(1, 3,true);
         System.out.println("Introduce la fecha desde la que quieres empezar a listar");
         LocalDate fecha = PedirDatos.pedirFecha();
         Class<? extends Ejercicio> claseEjercicio = switch (opcion) {
@@ -188,7 +188,7 @@ public class MenuUsuario {
         System.out.println("1.- Cardio ");
         System.out.println("2.- Flexibilidad ");
         System.out.println("3.-Fuerza ");
-        int opcion = PedirDatos.pedirNumeroIntMaxMin(1, 3);
+        int opcion = PedirDatos.pedirNumeroIntMaxMin(1, 3,true);
         Class<? extends Ejercicio> claseEjercicio = switch (opcion) {
             case 1 -> Cardio.class;
             case 2 -> Flexibilidad.class;
@@ -253,7 +253,7 @@ public class MenuUsuario {
         String nombre = PedirDatos.pedirPalabra("El ejercicio ");
         // Pedir la intensidad
         System.out.println("Ingrese la intensidad del ejercicio (un número entero) entre 1 y 8 siendo 1 lo mas bajo y 8 lo mas alto:");
-        int intensidad = PedirDatos.pedirNumeroIntMaxMin(1,8);
+        int intensidad = PedirDatos.pedirNumeroIntMaxMin(1,8,false);
         // Pedir la fecha
         System.out.println("Ingrese la fecha del ejercicio (en formato AAAA-MM-DD):");
         LocalDate fecha = PedirDatos.pedirFecha();
@@ -261,7 +261,7 @@ public class MenuUsuario {
         System.out.println("1.- Cardio ");
         System.out.println("2.- Flexibilidad ");
         System.out.println("3.-Fuerza ");
-        opcion = PedirDatos.pedirNumeroIntMaxMin(1,3);
+        opcion = PedirDatos.pedirNumeroIntMaxMin(1,3,true);
         switch (opcion){
             case 1:
                 anadirCardio(usuario,nombre,intensidad,fecha);
@@ -304,7 +304,7 @@ public class MenuUsuario {
                     nombre = PedirDatos.pedirPalabra("el nombre");
                 } else if (e.getMessage().equals("Intensidad")) {
                     System.out.println("Has introducido una intensidad incorrecta, corrígela");
-                    intensidad = PedirDatos.pedirNumeroIntMaxMin(1,8);
+                    intensidad = PedirDatos.pedirNumeroIntMaxMin(1,8,false);
                 } else if (e.getMessage().equals("Fecha")) {
                     System.out.println("Has introducido una fecha inválida, por favor introdúcela nuevamente");
                     fecha = PedirDatos.pedirFecha();
@@ -344,10 +344,10 @@ public class MenuUsuario {
             } catch (Exception e) {
                 if (e.getMessage().equals("Nombre")) {
                     System.out.println("Has introducido un nombre vacío, por favor introdúcelo nuevamente");
-                    nombre = PedirDatos.pedirPalabra("el nombre");
+                    nombre = PedirDatos.pedirPalabra("el ejercicio");
                 } else if (e.getMessage().equals("Intensidad")) {
                     System.out.println("Has introducido una intensidad incorrecta, corrígela");
-                    intensidad = PedirDatos.pedirNumeroIntMaxMin(1,8);
+                    intensidad = PedirDatos.pedirNumeroIntMaxMin(1,8,false);
                 } else if (e.getMessage().equals("Fecha")) {
                     System.out.println("Has introducido una fecha inválida, por favor introdúcela nuevamente");
                     fecha = PedirDatos.pedirFecha();
@@ -390,7 +390,7 @@ public class MenuUsuario {
                 nombre = PedirDatos.pedirPalabra("el nombre");
             } else if (e.getMessage().equals("Intensidad")) {
                 System.out.println("Has introducido una intensidad incorrecta, corrígela");
-                intensidad = PedirDatos.pedirNumeroIntMaxMin(1,8);
+                intensidad = PedirDatos.pedirNumeroIntMaxMin(1,8,false);
             } else if (e.getMessage().equals("Fecha")) {
                 System.out.println("Has introducido una fecha inválida, por favor introdúcela nuevamente");
                 fecha = PedirDatos.pedirFecha();

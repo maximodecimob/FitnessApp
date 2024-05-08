@@ -39,7 +39,7 @@ public class PedirDatos {
      * @param max el valor máximo permitido
      * @return el número entero ingresado por el usuario
      */
-    public static int pedirNumeroIntMaxMin(int min, int max) {
+    public static int pedirNumeroIntMaxMin(int min, int max,boolean menu) {
         Scanner teclado = new Scanner(System.in);
         int num = 0;
         do {
@@ -53,7 +53,7 @@ public class PedirDatos {
                 String texto = teclado.nextLine();
                 num = min - 1;
             }
-        } while (num < min || num > max);
+        } while ((num < min || num > max )&&menu);
         return num;
     }
 
@@ -215,4 +215,5 @@ public class PedirDatos {
         return yearMonth;
     }
 }
-
+// Cambiar los pedir_datos para que no pidan infinitamente solo pidan una vez y luego salir al menu
+// Crear las extepciones y realizar las impresiones correspondientes

@@ -30,7 +30,7 @@ public class ProgramaPrincipal {
             System.out.println("4. Descargar información de todos los usuarios");
             System.out.println("5. Hacer un informe general de todos los usuarios");
             System.out.println("6. Salir");
-            menu = PedirDatos.pedirNumeroIntMaxMin(1, 6);
+            menu = PedirDatos.pedirNumeroIntMaxMin(1, 6,true);
             registroUsuarios = switchMenu(menu, registroUsuarios);
             if (registroUsuarios == null) {
                 fitnessApp = false;
@@ -142,7 +142,7 @@ public class ProgramaPrincipal {
             System.out.println("Si no estas registrado y deseas registrarte presiona 1 ");
             System.out.println("Si tienes usuario y has introducido mal tu nombre presiona 2 ");
             System.out.println("Para volver al menu anterior presione 3");
-            menu = PedirDatos.pedirNumeroIntMaxMin(1, 3);
+            menu = PedirDatos.pedirNumeroIntMaxMin(1, 3,true);
             if(menu == 3){
                 menuGeneral();
             }
