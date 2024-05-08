@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -16,19 +15,17 @@ public class PedirDatos {
      */
     public static int pedirNumeroIntMin(int min) {
         Scanner teclado = new Scanner(System.in);
-        int num = 0;
-        do {
-            try {
-                num = teclado.nextInt();
-                if (num < min) {
-                    System.out.print("Introduzca un número mayor que " + min);
-                }
-            } catch (Exception ex) {
+        int num;
+        try {
+            num = teclado.nextInt();
+            if (num < min) {
                 System.out.print("Introduzca un número mayor que " + min);
-                String texto = teclado.nextLine();
-                num = min - 1;
             }
-        } while (num < min);
+        } catch (Exception ex) {
+            System.out.print("El numero introducido no es correcto o no es un número");
+            teclado.nextLine();
+            num = -1;
+        }
         return num;
     }
 
@@ -41,7 +38,7 @@ public class PedirDatos {
      */
     public static int pedirNumeroIntMaxMin(int min, int max,boolean menu) {
         Scanner teclado = new Scanner(System.in);
-        int num = 0;
+        int num;
         do {
             try {
                 num = teclado.nextInt();
@@ -49,9 +46,14 @@ public class PedirDatos {
                     System.out.print("Introduzca un número en el rango " + min + "-" + max + ":");
                 }
             } catch (Exception ex) {
-                System.out.print("Introduzca un número en el rango " + min + "-" + max + ":");
-                String texto = teclado.nextLine();
-                num = min - 1;
+                if(menu) {
+                    System.out.print("Introduzca un número en el rango " + min + "-" + max + ":");
+                    teclado.nextLine();
+                    num = min - 1;
+                }else{
+                    System.out.println("El número introducido no esta en el rango de los pedidos");
+                    num = -1;
+                }
             }
         } while ((num < min || num > max )&&menu);
         return num;
@@ -65,19 +67,17 @@ public class PedirDatos {
      */
     public static double pedirNumeroDoubleMin(int min) {
         Scanner teclado = new Scanner(System.in);
-        double num = 0;
-        do {
+        double num;
             try {
                 num = teclado.nextDouble();
                 if (num < min) {
                     System.out.print("Introduzca un número mayor que " + min + " ");
                 }
             } catch (Exception ex) {
-                System.out.print("Introduzca un número mayor que " + min + " ");
-                String texto = teclado.nextLine();
-                num = min - 1;
+                System.out.print("El número introducido tendría que haber sido mayor que " + min + " ");
+                teclado.nextLine();
+                num = - 1;
             }
-        } while (num < min);
         return num;
     }
 
@@ -90,7 +90,6 @@ public class PedirDatos {
     public static String pedirPalabra(String peticion) {
         Scanner teclado = new Scanner(System.in);
         String palabra;
-        do {
             try {
                 palabra = teclado.nextLine();
                 if (esNumero(palabra) || contieneCaracteresEspeciales(palabra)) {
@@ -99,10 +98,9 @@ public class PedirDatos {
                 }
             } catch (Exception ex) {
                 System.out.print("Introduzca " + peticion);
-                String texto = teclado.nextLine();
+                teclado.nextLine();
                 palabra = "";
             }
-        } while (Objects.equals(palabra, ""));
         return palabra;
     }
 
@@ -144,16 +142,14 @@ public class PedirDatos {
         Scanner teclado = new Scanner(System.in);
 
         System.out.println("Por favor, ingresa tu nivel (PRINCIPIANTE, INTERMEDIO o AVANZADO):");
-        Nivel nivel = null;
-
-        do {
+        Nivel nivel;
             try {
                 String nivelStr = teclado.nextLine().toUpperCase();
                 nivel = Nivel.valueOf(nivelStr);
             } catch (Exception e) {
-                System.out.println("Nivel inválido. Por favor, ingresa uno de los siguientes niveles: PRINCIPIANTE, INTERMEDIO o AVANZADO.");
+                System.out.println("Nivel inválido. No es ninguno de los siguientes niveles: PRINCIPIANTE, INTERMEDIO o AVANZADO.");
+                nivel = null;
             }
-        } while (nivel == null);
         return nivel;
     }
 
@@ -164,24 +160,21 @@ public class PedirDatos {
      */
     public static LocalDate pedirFecha() {
         Scanner teclado = new Scanner(System.in);
-        LocalDate fecha = null;
+        LocalDate fecha;
         LocalDate fechaMinima = LocalDate.of(2000, 1, 1);
         LocalDate fechaActual = LocalDate.now();
-        boolean fechaValida = false;
-        do {
-            try {
-                System.out.print("Ingrese una fecha (formato AAAA-MM-DD): ");
-                String input = teclado.nextLine();
-                fecha = LocalDate.parse(input);
-                if (fecha.isAfter(fechaMinima) && (fecha.isBefore(fechaActual) || fecha.isEqual(fechaActual))) {
-                    fechaValida = true;
-                } else {
-                    System.out.println("Ingrese una fecha entre el año 2000 y hoy inclusive.");
-                }
-            } catch (Exception ex) {
-                System.out.println("Ingrese una fecha válida en el formato especificado.");
+        try {
+            System.out.print("Ingrese una fecha (formato AAAA-MM-DD): ");
+            String input = teclado.nextLine();
+            fecha = LocalDate.parse(input);
+            if (!fecha.isAfter(fechaMinima) || (!fecha.isBefore(fechaActual) && !fecha.isEqual(fechaActual))) {
+                System.out.println("La fecha no esta entre el año 2000 y hoy inclusive.");
+                fecha = null;
             }
-        } while (!fechaValida);
+        } catch (Exception ex) {
+            System.out.println("Fecha invalida en el formato especificado.");
+            fecha = null;
+        }
         return fecha;
     }
 
@@ -192,26 +185,23 @@ public class PedirDatos {
      */
     public static YearMonth pedirAnoMes() {
         Scanner teclado = new Scanner(System.in);
-        LocalDate fecha = null;
-        YearMonth yearMonth = null;
+        LocalDate fecha;
+        YearMonth yearMonth;
         LocalDate fechaMinima = LocalDate.of(2000, 1, 1);
         LocalDate fechaActual = LocalDate.now();
-        boolean fechaValida = false;
-        do {
             try {
                 System.out.print("Ingrese el mes y el año (formato AAAA-MM): ");
                 String input = teclado.nextLine();
                 yearMonth = YearMonth.parse(input);
                 fecha = yearMonth.atDay(1);
-                if (fecha.isAfter(fechaMinima) && (fecha.isBefore(fechaActual) || fecha.isEqual(fechaActual))) {
-                    fechaValida = true;
-                } else {
-                    System.out.println("Ingrese un mes y año entre el año 2000 y el mes y año actual inclusive.");
+                if (!fecha.isAfter(fechaMinima) || (!fecha.isBefore(fechaActual) && !fecha.isEqual(fechaActual))) {
+                    System.out.println("El mes y año no están entre el año 2000 y el mes y año actual inclusive.");
+                    yearMonth = null;
                 }
             } catch (Exception ex) {
                 System.out.println("Ingrese un mes y año válidos en el formato especificado.");
+                yearMonth = null;
             }
-        } while (!fechaValida);
         return yearMonth;
     }
 }
