@@ -346,11 +346,13 @@ public class MenuUsuario {
                         Fuerza fuerza = new Fuerza(nombre, intensidad, fecha, peso, repes);
                         usuario.agregarEjercicioRealizado(fuerza);
                     } catch (IntensidadIncorrectaException e) {
-                        System.out.println("Has metido mal la intensidad no se ha creado el ejercicio");
+                        System.out.println("Has metido mal la intensidad");
                     } catch (ConjuntoVacioException e){
                         System.out.println("Has metido mal o la fecha o el nombre del ejercicio");
                     } catch (NumeroNegativoException e){
                         System.out.println("Has metido el peso o las repeticiones en negativo");
+                    }finally {
+                        System.out.println("El ejercicio no se ha creado");
                     }
             }else{
                 System.out.println("Al meter mal el dato volviendo al menu del usuario ...");
@@ -378,11 +380,13 @@ public class MenuUsuario {
                 Flexibilidad flexibilidad = new Flexibilidad(nombre, intensidad, fecha, repeticiones);
                 usuario.agregarEjercicioRealizado(flexibilidad);
             } catch (IntensidadIncorrectaException e) {
-                System.out.println("Has metido mal la intensidad no se ha creado el ejercicio");
+                System.out.println("Has metido mal la intensidad");
             } catch (ConjuntoVacioException e){
                 System.out.println("Has metido mal o la fecha o el nombre del ejercicio");
             } catch (NumeroNegativoException e){
                 System.out.println("Has metido las repeticiones en negativo");
+            }finally {
+                System.out.println("El ejercicio no se ha creado");
             }
         }else{
             System.out.println("Al meter mal el dato volviendo al menu del usuario ...");
@@ -414,11 +418,13 @@ public class MenuUsuario {
                         usuario.agregarEjercicioRealizado(cardio);
                         intentarNuevamente = false;
                     } catch (IntensidadIncorrectaException e) {
-                        System.out.println("Has metido mal la intensidad no se ha creado el ejercicio");
+                        System.out.println("Has metido mal la intensidad");
                     } catch (ConjuntoVacioException e) {
                         System.out.println("Has metido mal o la fecha o el nombre del ejercicio");
                     } catch (NumeroNegativoException e) {
                         System.out.println("Has metido la distancia o la duración en negativo");
+                    } finally {
+                        System.out.println("El ejercicio no se ha creado");
                     }
                 }
             } else{
