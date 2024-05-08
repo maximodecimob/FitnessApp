@@ -13,10 +13,6 @@ Eduardo Estefanía Ovejero
 Fecha de finalización: 18/04/2024
  */
 
-import Excepciones.ConjuntoVacioException;
-import Excepciones.NivelIncorrectoException;
-import Excepciones.NumeroNegativoException;
-
 public class Main {
     public static void main(String[] args) {
         ProgramaPrincipal.menuGeneral();

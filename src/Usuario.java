@@ -1,6 +1,5 @@
 import Ejercicios.Ejercicio;
 import Excepciones.ConjuntoVacioException;
-import Excepciones.NivelIncorrectoException;
 import Excepciones.NumeroNegativoException;
 
 import java.io.Serializable;
@@ -38,13 +37,11 @@ public class Usuario implements Serializable {
      * @param peso el peso del usuario, en kilogramos
      * @param nivel el nivel de actividad del usuario
      */
-    public Usuario(String nombre, int edad, double peso, Nivel nivel) throws ConjuntoVacioException, NumeroNegativoException, NivelIncorrectoException {
+    public Usuario(String nombre, int edad, double peso, Nivel nivel) throws ConjuntoVacioException, NumeroNegativoException {
         if(nivel == null || Objects.equals(nombre, "")){
-            throw new ConjuntoVacioException("No ha introducido nada.Porfavor, introduzca los datos correctamente.");
-        } else if (edad<0 || peso<0) {
+            throw new ConjuntoVacioException("No ha introducido nada en nivel o nombre");
+        } if (edad<0 || peso<0) {
             throw new NumeroNegativoException("El número introducido debe ser positivo.");
-        } else if(nivel!=Nivel.PRINCIPIANTE || nivel!=Nivel.INTERMEDIO || nivel!=Nivel.AVANZADO){
-            throw new NivelIncorrectoException("El nivel introducido no es el correcto.");
         }
         this.nombre = nombre;
         this.edad = edad;

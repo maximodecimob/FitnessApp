@@ -1,12 +1,11 @@
 import Excepciones.ConjuntoVacioException;
-import Excepciones.IntensidadIncorrectaException;
-import Excepciones.NivelIncorrectoException;
 import Excepciones.NumeroNegativoException;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Clase que representa el programa principal de FitnessApp.
@@ -56,7 +55,7 @@ public class ProgramaPrincipal {
                 registrarse(registroUsuarios);
                 break;
             case (2):
-                registroUsuarios = inicioSesion(registroUsuarios);
+                inicioSesion(registroUsuarios);
                 break;
             case (3):
                 guardarDatos(registroUsuarios);
@@ -124,7 +123,6 @@ public class ProgramaPrincipal {
             System.out.println("Datos guardados correctamente");
         } catch (IOException var4) {
             System.out.println("No se ha podido abrir el archivo para guardar los datos.");
-            var4.printStackTrace();
         }
 
     }
@@ -133,15 +131,13 @@ public class ProgramaPrincipal {
      * Permite a un usuario iniciar sesión en FitnessApp.
      *
      * @param registroUsuarios el registro de usuarios de FitnessApp
-     * @return el registro de usuarios actualizado después de iniciar sesión
      */
-    private static RegistroUsuarios inicioSesion(RegistroUsuarios registroUsuarios) {
+    private static void inicioSesion(RegistroUsuarios registroUsuarios) {
         String nombre;
         Usuario usuario;
-        int menu;
         System.out.println("Introduce el nombre: ");
         nombre = PedirDatos.pedirPalabra("el nombre");
-        if (nombre == "") {
+        if (Objects.equals(nombre, "")) {
             System.out.println("Nombre incorrecto, volviendo al menu...");
             menuGeneral();
         } else {
@@ -154,7 +150,6 @@ public class ProgramaPrincipal {
                 registroUsuarios.modificar(usuario);// Cuando el usuario cierra sesión se actualiza
             }
         }
-        return registroUsuarios;
     }
 
     /**
@@ -177,8 +172,6 @@ public class ProgramaPrincipal {
             System.out.println("Has introducido un nombre vacío. Volviendo al menú...");
         } catch(NumeroNegativoException e) {
             System.out.println("Has introducido un valor negativo. Volviendo al menú...");
-        }catch(NivelIncorrectoException e){
-            System.out.println("Has introducido un nivel erroneo corrígelo");
         }
     }
 }
