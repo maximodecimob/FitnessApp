@@ -139,12 +139,12 @@ public class ProgramaPrincipal {
         nombre = PedirDatos.pedirPalabra("el nombre");
         if (Objects.equals(nombre, "")) {
             System.out.println("Nombre incorrecto, volviendo al menu...");
-            menuGeneral();
+            return;
         } else {
             usuario = registroUsuarios.buscarUsuario(nombre);
             if (usuario == null) {
                 System.out.println("Necesitas iniciar sesión si no tienes usuario. Si tienes usuario introduce bien tu nombre.");
-                menuGeneral();
+                return;
             } else {
                 MenuUsuario.menuUsuario(usuario);
                 registroUsuarios.modificar(usuario);// Cuando el usuario cierra sesión se actualiza
@@ -162,25 +162,28 @@ public class ProgramaPrincipal {
             System.out.println("Introduce el nombre: ");
             String nombre = PedirDatos.pedirPalabra("el nombre");
             if(Objects.equals(nombre, "")){
-                menuGeneral();
+                return;
             }
             System.out.println("Introduce el peso en kilogramos: ");
             double peso = PedirDatos.pedirNumeroDoubleMin(0);
             if(peso<=0){
-                menuGeneral();
+                return;
             }
             System.out.println("Introduce la edad: ");
             int edad = PedirDatos.pedirNumeroIntMin(0);
             if(edad<=0){
-                menuGeneral();
+                return;
             }
             Nivel nivel = PedirDatos.seleccionarNivel();
             if(nivel==null){
-                menuGeneral();
+                return;
             }
 
             Usuario nuevoUsuario = new Usuario(nombre, edad, peso, nivel);
             registroUsuarios.agregarUsuario(nuevoUsuario);
+
+            System.out.println("Usuario registrado con éxito.");
+
         } catch (ConjuntoVacioException e) {
             System.out.println("Has introducido un nombre vacío. \nVolviendo al menú...");
         } catch(NumeroNegativoException e) {

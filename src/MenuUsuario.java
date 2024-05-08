@@ -28,7 +28,7 @@ public class MenuUsuario {
         // Añadir ejercicios de muestra para propósitos de prueba
         int menu;
         boolean menuUsu=true;
-        System.out.println("Bienvenido " + usuario.getNombre() + ", ¿Qué desea hacer?");
+        System.out.println("\nBienvenido " + usuario.getNombre() + ", ¿Qué desea hacer?");
         do {
             // Mostrar el menú
             mostrarMenu();
@@ -283,46 +283,42 @@ public class MenuUsuario {
      * @param usuario el usuario que realiza el ejercicio
      */
     private static void anadirEjercicio(Usuario usuario){
-        int opcion;
-        // Pedir el nombre
         System.out.println("Ingrese el nombre del ejercicio:");
         String nombre = PedirDatos.pedirPalabra("El ejercicio ");
-        if(!Objects.equals(nombre, "")) {
-            // Pedir la intensidad
-            System.out.println("Ingrese la intensidad del ejercicio (un número entero) entre 1 y 8 siendo 1 lo mas bajo y 8 lo mas alto:");
-            int intensidad = PedirDatos.pedirNumeroIntMaxMin(1, 8, false);
-            // Pedir la fecha
-            if(intensidad == -1) {
-                System.out.println("Ingrese la fecha del ejercicio (en formato AAAA-MM-DD):");
-                LocalDate fecha = PedirDatos.pedirFecha();
-                if(fecha != null) {
-                    System.out.println("Que tipo de ejercicio desea añadir ");
-                    System.out.println("1.- Cardio ");
-                    System.out.println("2.- Flexibilidad ");
-                    System.out.println("3.-Fuerza ");
-                    opcion = PedirDatos.pedirNumeroIntMaxMin(1, 3, true);
-                    switch (opcion) {
-                        case 1:
-                            anadirCardio(usuario, nombre, intensidad, fecha);
-                            break;
-                        case 2:
-                            anadirFlexibilidad(usuario, nombre, intensidad, fecha);
-                            break;
-                        case 3:
-                            anadirFuerza(usuario, nombre, intensidad, fecha);
-                            break;
-                    }
-                    System.out.println("Ejercicio añadido correctamente");
-                }else{
-                    System.out.println("Al meter mal el dato volviendo al menu del usuario ...");
-                }
-            }else{
-                System.out.println("Al meter mal el dato volviendo al menu del usuario ...");
-            }
-        }else{
-            System.out.println("Al meter mal el dato volviendo al menu del usuario ...");
+        if(Objects.equals(nombre, "")) {
+            return;
         }
+        System.out.println("Ingrese la intensidad del ejercicio (un número entero) entre 1 y 8 siendo 1 lo mas bajo y 8 lo mas alto:");
+        int intensidad = PedirDatos.pedirNumeroIntMaxMin(1, 8, false);
+        if(intensidad == -1) {
+            return;
+        }
+        System.out.println("Ingrese la fecha del ejercicio (en formato AAAA-MM-DD):");
+        LocalDate fecha = PedirDatos.pedirFecha();
+        if(fecha==null) {
+            return;
+        }
+        int opcion;
+        System.out.println("Que tipo de ejercicio desea añadir ");
+        System.out.println("1.- Cardio ");
+        System.out.println("2.- Flexibilidad ");
+        System.out.println("3.- Fuerza ");
+        opcion = PedirDatos.pedirNumeroIntMaxMin(1, 3, true);
+
+        switch (opcion) {
+            case 1:
+                anadirCardio(usuario, nombre, intensidad, fecha);
+                break;
+            case 2:
+                anadirFlexibilidad(usuario, nombre, intensidad, fecha);
+                break;
+            case 3:
+                anadirFuerza(usuario, nombre, intensidad, fecha);
+                break;
+        }
+
     }
+
 
     /**
      * Agrega un nuevo ejercicio de fuerza realizado por el usuario.
@@ -333,34 +329,34 @@ public class MenuUsuario {
      * @param fecha    la fecha en que se realizó el ejercicio
      */
     private static void anadirFuerza(Usuario usuario, String nombre, int intensidad, LocalDate fecha) {
-        // Solicita al usuario que introduzca el peso levantado en kilogramos
-        System.out.println("Introduce el peso levantado en kilogramos ");
+        System.out.println("Introduzca el peso: ");
         double peso = PedirDatos.pedirNumeroDoubleMin(0);
-        if(peso != -1) {
-            // Solicita al usuario que introduzca el número de repeticiones
-            System.out.println("Introduce el número de repeticiones ");
-            int repes = PedirDatos.pedirNumeroIntMin(0);
-            if(repes != -1) {
-                // Crea un nuevo ejercicio de fuerza y lo agrega al usuario
-                    try {
-                        Fuerza fuerza = new Fuerza(nombre, intensidad, fecha, peso, repes);
-                        usuario.agregarEjercicioRealizado(fuerza);
-                    } catch (IntensidadIncorrectaException e) {
-                        System.out.println("Has metido mal la intensidad");
-                    } catch (ConjuntoVacioException e){
-                        System.out.println("Has metido mal o la fecha o el nombre del ejercicio");
-                    } catch (NumeroNegativoException e){
-                        System.out.println("Has metido el peso o las repeticiones en negativo");
-                    }finally {
-                        System.out.println("El ejercicio no se ha creado");
-                    }
-            }else{
-                System.out.println("Al meter mal el dato volviendo al menu del usuario ...");
-            }
-        }else{
-            System.out.println("Al meter mal el dato volviendo al menu del usuario ...");
+        if (peso == -1) {
+            System.out.println("Al meter mal el dato, volviendo al menú del usuario...");
+            return;
+        }
+
+        System.out.println("Introduce el numero de repeticiones: ");
+        int repes = PedirDatos.pedirNumeroIntMin(0);
+        if (repes == -1) {
+            System.out.println("Al meter mal el dato, volviendo al menú del usuario...");
+            return;
+        }
+
+        try {
+            Fuerza fuerza = new Fuerza(nombre, intensidad, fecha, peso, repes);
+            usuario.agregarEjercicioRealizado(fuerza);
+        } catch (IntensidadIncorrectaException e) {
+            System.out.println("Has metido mal la intensidad");
+        } catch (ConjuntoVacioException e){
+            System.out.println("Has metido mal la fecha o el nombre del ejercicio");
+        } catch (NumeroNegativoException e){
+            System.out.println("Has metido el peso o las repeticiones en negativo");
+        } finally {
+            System.out.println("El ejercicio no se ha creado");
         }
     }
+
 
     /**
      * Agrega un nuevo ejercicio de flexibilidad realizado por el usuario.
@@ -402,36 +398,29 @@ public class MenuUsuario {
      * @param fecha        la fecha en que se realizó el ejercicio
      */
     private static void anadirCardio(Usuario usuario, String nombre, int intensidad, LocalDate fecha) {
-        // Solicita al usuario que introduzca la distancia en kilómetros
-        System.out.println("Ingrese la distancia en kilómetros ");
+        System.out.println("Introduce la distancia: ");
         double distancia = PedirDatos.pedirNumeroDoubleMin(0);
-        if(distancia != -1) {
-            // Solicita al usuario que introduzca la duración en minutos
-            System.out.println("Ingrese la duración en minutos");
-            double duracion = PedirDatos.pedirNumeroDoubleMin(0);
-            if(duracion != -1) {
-                // Crea un nuevo ejercicio de cardio y lo agrega al usuario
-                boolean intentarNuevamente = true;
-                while (intentarNuevamente) {
-                    try {
-                        Cardio cardio = new Cardio(nombre, intensidad, fecha, distancia, duracion);
-                        usuario.agregarEjercicioRealizado(cardio);
-                        intentarNuevamente = false;
-                    } catch (IntensidadIncorrectaException e) {
-                        System.out.println("Has metido mal la intensidad");
-                    } catch (ConjuntoVacioException e) {
-                        System.out.println("Has metido mal o la fecha o el nombre del ejercicio");
-                    } catch (NumeroNegativoException e) {
-                        System.out.println("Has metido la distancia o la duración en negativo");
-                    } finally {
-                        System.out.println("El ejercicio no se ha creado");
-                    }
-                }
-            } else{
-                System.out.println("Al meter mal el dato volviendo al menu del usuario ...");
-            }
-        }else{
-            System.out.println("Al meter mal el dato volviendo al menu del usuario ...");
+        if (distancia == -1) {
+            System.out.println("Al meter mal el dato, volviendo al menú del usuario...");
+            return;
+        }
+
+        System.out.println("Introduce la duracion: ");
+        double duracion = PedirDatos.pedirNumeroDoubleMin(0);
+        if (duracion == -1) {
+            System.out.println("Al meter mal el dato, volviendo al menú del usuario...");
+            return;
+        }
+
+        try {
+            Cardio cardio = new Cardio(nombre, intensidad, fecha, distancia, duracion);
+            usuario.agregarEjercicioRealizado(cardio);
+        } catch (IntensidadIncorrectaException e) {
+            System.out.println("Has metido mal la intensidad");
+        } catch (ConjuntoVacioException e) {
+            System.out.println("Has metido mal la fecha o el nombre del ejercicio");
+        } catch (NumeroNegativoException e) {
+            System.out.println("Has metido la distancia o la duración en negativo");
         }
     }
 }
