@@ -24,7 +24,7 @@ public class ProgramaPrincipal {
         do {
             if (primera) {
                 primera = false;
-                System.out.println("Bienvenido a FitnessApp, ¿Qué desea hacer?");
+                System.out.println("\nBienvenido a FitnessApp, ¿Qué desea hacer?");
             } else {
                 System.out.println("¿Qué desea hacer?");
             }
@@ -161,17 +161,30 @@ public class ProgramaPrincipal {
         try {
             System.out.println("Introduce el nombre: ");
             String nombre = PedirDatos.pedirPalabra("el nombre");
+            if(Objects.equals(nombre, "")){
+                menuGeneral();
+            }
             System.out.println("Introduce el peso en kilogramos: ");
             double peso = PedirDatos.pedirNumeroDoubleMin(0);
+            if(peso<=0){
+                menuGeneral();
+            }
             System.out.println("Introduce la edad: ");
             int edad = PedirDatos.pedirNumeroIntMin(0);
+            if(edad<=0){
+                menuGeneral();
+            }
             Nivel nivel = PedirDatos.seleccionarNivel();
+            if(nivel==null){
+                menuGeneral();
+            }
+
             Usuario nuevoUsuario = new Usuario(nombre, edad, peso, nivel);
             registroUsuarios.agregarUsuario(nuevoUsuario);
         } catch (ConjuntoVacioException e) {
-            System.out.println("Has introducido un nombre vacío. Volviendo al menú...");
+            System.out.println("Has introducido un nombre vacío. \nVolviendo al menú...");
         } catch(NumeroNegativoException e) {
-            System.out.println("Has introducido un valor negativo. Volviendo al menú...");
+            System.out.println("Has introducido un valor negativo. \nVolviendo al menú...");
         }
     }
 }

@@ -74,7 +74,7 @@ public class PedirDatos {
                     System.out.print("Introduzca un número mayor que " + min + " ");
                 }
             } catch (Exception ex) {
-                System.out.print("El número introducido tendría que haber sido mayor que " + min + " ");
+                System.out.print("Error: Debe introducir un numero mayor que " + min + " ");
                 teclado.nextLine();
                 num = - 1;
             }
@@ -93,7 +93,7 @@ public class PedirDatos {
             try {
                 palabra = teclado.nextLine();
                 if (esNumero(palabra) || contieneCaracteresEspeciales(palabra)) {
-                    System.out.println(peticion + " no puede contener números ni caracteres especiales. Inténtelo de nuevo.");
+                    System.out.println(peticion + " no puede contener números ni caracteres especiales. Tampoco puede estar vacío");
                     palabra = ""; // Restablecer la palabra para volver a solicitarla
                 }
             } catch (Exception ex) {
