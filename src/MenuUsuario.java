@@ -21,15 +21,14 @@ public class MenuUsuario {
      * @param usuario el usuario para el cual se realiza el menú
      */
     public static void menuUsuario(Usuario usuario) {
-        boolean menuUsu = true;
         // Añadir ejercicios de muestra para propósitos de prueba
         int menu;
         System.out.println("Bienvenido " + usuario.getNombre() + ", ¿Qué desea hacer?");
-        do {
+        while (true) {
             // Mostrar el menú
             mostrarMenu();
             // Solicitar al usuario que ingrese una opción del menú
-            menu = PedirDatos.pedirNumeroIntMaxMin(1, 12,true);
+            menu = PedirDatos.pedirNumeroIntMaxMin(1, 12, true);
             // Procesar la opción seleccionada por el usuario
             switch (menu) {
                 case 1 -> anadirEjercicio(usuario);
@@ -48,7 +47,7 @@ public class MenuUsuario {
                     ProgramaPrincipal.menuGeneral();
                 }
             }
-        } while (true);
+        }
     }
 
     private static void informeEjercicios(Usuario usuario) {
