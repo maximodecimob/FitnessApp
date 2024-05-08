@@ -1,5 +1,9 @@
 package Ejercicios;
 
+import Excepciones.ConjuntoVacioException;
+import Excepciones.IntensidadIncorrectaException;
+import Excepciones.NumeroNegativoException;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 /**
@@ -23,12 +27,10 @@ public class Fuerza extends Ejercicio implements Serializable {
      * @param peso el peso levantado durante el ejercicio, en kilogramos
      * @param repeticiones el número de repeticiones del ejercicio de fuerza
      */
-    public Fuerza(String nombre, int intensidad, LocalDate fecha, double peso, int repeticiones) throws Exception {
+    public Fuerza(String nombre, int intensidad, LocalDate fecha, double peso, int repeticiones) throws ConjuntoVacioException, NumeroNegativoException, IntensidadIncorrectaException{
         super(nombre, intensidad, fecha);
-        if(peso<0){
-            throw new Exception("Peso");
-        } else if (repeticiones<0) {
-            throw new Exception("Repeticiones");
+        if(peso<0 || repeticiones<0){
+            throw new NumeroNegativoException("Debe introducir un número positivo.");
         }
         this.peso = peso;
         this.repeticiones = repeticiones;

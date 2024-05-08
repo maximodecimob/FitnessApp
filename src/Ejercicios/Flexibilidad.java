@@ -1,5 +1,9 @@
 package Ejercicios;
 
+import Excepciones.ConjuntoVacioException;
+import Excepciones.IntensidadIncorrectaException;
+import Excepciones.NumeroNegativoException;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -20,10 +24,10 @@ public class Flexibilidad extends Ejercicio implements Serializable {
      * @param fecha la fecha en la que se realizó el ejercicio
      * @param repeticiones el número de repeticiones del ejercicio de flexibilidad
      */
-    public Flexibilidad(String nombre, int intensidad, LocalDate fecha, int repeticiones) throws Exception {
+    public Flexibilidad(String nombre, int intensidad, LocalDate fecha, int repeticiones) throws NumeroNegativoException, ConjuntoVacioException, IntensidadIncorrectaException {
         super(nombre, intensidad, fecha);
         if(repeticiones<0){
-            throw new Exception("Repeticiones");
+            throw new NumeroNegativoException("Las repeticiones deben ser un número positivo");
         }
         this.repeticiones = repeticiones;
     }

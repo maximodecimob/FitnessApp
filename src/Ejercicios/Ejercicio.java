@@ -1,5 +1,8 @@
 package Ejercicios;
 
+import Excepciones.ConjuntoVacioException;
+import Excepciones.IntensidadIncorrectaException;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -53,13 +56,11 @@ public abstract class Ejercicio implements Serializable {
      * @param intensidad la intensidad del ejercicio en una escala del 1 al 8
      * @param fecha la fecha en la que se realizó el ejercicio
      */
-    public Ejercicio(String nombre, int intensidad, LocalDate fecha) throws Exception {
+    public Ejercicio(String nombre, int intensidad, LocalDate fecha) throws IntensidadIncorrectaException, ConjuntoVacioException {
         if(intensidad>8||intensidad<1){
-            throw new Exception("Intensidad");
-        } else if (Objects.equals(nombre, "")) {
-            throw new Exception("Nombre");
-        } else if (fecha == null) {
-            throw new Exception();
+            throw new IntensidadIncorrectaException("Intensidad incorrecta. Debe ser un número entero entre 1 y 8 inclusive.");
+        } else if (Objects.equals(nombre, "") || fecha == null) {
+            throw new ConjuntoVacioException("No ha introducido nada. Porfavor, introduzca correctamente los datos");
         }
         this.nombre = nombre;
         this.intensidad = intensidad;
