@@ -45,10 +45,10 @@ public class MenuUsuario {
                 case 11 -> informeEjercicios(usuario);
                 case 12 -> {
                     System.out.println("Volviendo al menú anterior...");
-                    menuUsu = false;
+                    ProgramaPrincipal.menuGeneral();
                 }
             }
-        } while (menuUsu);
+        } while (true);
     }
 
     private static void informeEjercicios(Usuario usuario) {
