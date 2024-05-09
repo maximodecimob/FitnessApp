@@ -26,6 +26,9 @@ public class Fuerza extends Ejercicio implements Serializable {
      * @param fecha la fecha en la que se realizó el ejercicio
      * @param peso el peso levantado durante el ejercicio, en kilogramos
      * @param repeticiones el número de repeticiones del ejercicio de fuerza
+     * @throws ConjuntoVacioException si algún parámetro es nulo o vacío
+     * @throws NumeroNegativoException si el peso o las repeticiones son un número negativo
+     * @throws IntensidadIncorrectaException si la intensidad no está en el rango de 1 a 8
      */
     public Fuerza(String nombre, int intensidad, LocalDate fecha, double peso, int repeticiones) throws ConjuntoVacioException, NumeroNegativoException, IntensidadIncorrectaException{
         super(nombre, intensidad, fecha);
@@ -51,7 +54,8 @@ public class Fuerza extends Ejercicio implements Serializable {
             return "El ejercicio de Fuerza '" + nombre + "' " +
                     "consistió en levantar un peso de " + peso + " kilogramos durante " +
                     repeticiones + " repeticiones, con una intensidad de " + intensidad + " sobre 8, realizado en la fecha " + fecha + ".";
-        }    }
+        }
+    }
 
     /**
      * Calcula las calorías quemadas durante el ejercicio de fuerza.
@@ -67,6 +71,11 @@ public class Fuerza extends Ejercicio implements Serializable {
         return calorias;
     }
 
+    /**
+     * Obtiene los datos del ejercicio para un informe.
+     *
+     * @return una cadena que describe el peso levantado y el número de repeticiones del ejercicio
+     */
     @Override
     public String getDatosInforme() {
         if (repeticiones == 1) {

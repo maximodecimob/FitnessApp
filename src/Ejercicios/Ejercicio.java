@@ -6,7 +6,6 @@ import Excepciones.IntensidadIncorrectaException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
-
 /**
  * La clase abstracta Ejercicio representa un tipo genérico de ejercicio físico.
  * Contiene atributos comunes a todos los tipos de ejercicios, como nombre, intensidad y fecha.
@@ -21,6 +20,26 @@ public abstract class Ejercicio implements Serializable {
 
     /** La fecha en la que se realizó el ejercicio. */
     protected LocalDate fecha;
+
+    /**
+     * Constructor para la clase Ejercicio.
+     *
+     * @param nombre el nombre del ejercicio
+     * @param intensidad la intensidad del ejercicio en una escala del 1 al 8
+     * @param fecha la fecha en la que se realizó el ejercicio
+     * @throws IntensidadIncorrectaException si la intensidad no está en el rango correcto
+     * @throws ConjuntoVacioException si el nombre o la fecha son nulos
+     */
+    public Ejercicio(String nombre, int intensidad, LocalDate fecha) throws IntensidadIncorrectaException, ConjuntoVacioException {
+        if(intensidad > 8 || intensidad < 1){
+            throw new IntensidadIncorrectaException("Intensidad incorrecta. Debe ser un número entero entre 1 y 8 inclusive.");
+        } else if (Objects.equals(nombre, "") || fecha == null) {
+            throw new ConjuntoVacioException("No ha introducido nada en fecha o en nombre.");
+        }
+        this.nombre = nombre;
+        this.intensidad = intensidad;
+        this.fecha = fecha;
+    }
 
     /**
      * Obtiene la fecha en la que se realizó el ejercicio.
@@ -50,31 +69,20 @@ public abstract class Ejercicio implements Serializable {
     }
 
     /**
-     * Constructor para la clase Ejercicio.
-     *
-     * @param nombre el nombre del ejercicio
-     * @param intensidad la intensidad del ejercicio en una escala del 1 al 8
-     * @param fecha la fecha en la que se realizó el ejercicio
-     */
-    public Ejercicio(String nombre, int intensidad, LocalDate fecha) throws IntensidadIncorrectaException, ConjuntoVacioException {
-        if(intensidad>8||intensidad<1){
-            throw new IntensidadIncorrectaException("Intensidad incorrecta. Debe ser un número entero entre 1 y 8 inclusive.");
-        } else if (Objects.equals(nombre, "") || fecha == null) {
-            throw new ConjuntoVacioException("No ha introducido nada en fecha o en nombre.");
-        }
-        this.nombre = nombre;
-        this.intensidad = intensidad;
-        this.fecha = fecha;
-    }
-
-    /**
      * Calcula las calorías quemadas durante el ejercicio.
      *
      * @param peso el peso del individuo que realiza el ejercicio, en kilogramos
      * @return el número de calorías quemadas durante el ejercicio
      */
     public abstract double calcularCalorias(double peso);
+
+    /**
+     * Obtiene los datos del ejercicio para un informe.
+     *
+     * @return una cadena con los datos relevantes del ejercicio para un informe
+     */
     public abstract String getDatosInforme();
+
     /**
      * Obtiene una representación en forma de cadena del objeto Ejercicio.
      *
@@ -86,4 +94,3 @@ public abstract class Ejercicio implements Serializable {
                 "se realizó con una intensidad de " + intensidad + " sobre 8, en la fecha " + fecha + ".";
     }
 }
-

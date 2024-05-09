@@ -26,6 +26,9 @@ public class Cardio extends Ejercicio implements Serializable {
      * @param fecha la fecha en la que se realizó el ejercicio
      * @param distancia la distancia recorrida durante el ejercicio, en kilómetros
      * @param duracion la duración del ejercicio, en minutos
+     * @throws NumeroNegativoException si la distancia o la duración son números negativos
+     * @throws ConjuntoVacioException si el nombre del ejercicio es nulo o vacío
+     * @throws IntensidadIncorrectaException si la intensidad no está en el rango permitido (1-8)
      */
     public Cardio(String nombre, int intensidad, LocalDate fecha, double distancia, double duracion) throws NumeroNegativoException, ConjuntoVacioException, IntensidadIncorrectaException {
         super(nombre, intensidad, fecha);
@@ -47,7 +50,8 @@ public class Cardio extends Ejercicio implements Serializable {
         String duracionString = duracion == 1 ? "minuto" : "minutos";
 
         return "El ejercicio de Cardio '" + nombre + "' consistió en correr una distancia de " + distancia + " " + distanciaString +
-                " durante " + duracion + " " + duracionString + ", con una intensidad de " + intensidad + " sobre 8, realizado en la fecha " + fecha + ".";    }
+                " durante " + duracion + " " + duracionString + ", con una intensidad de " + intensidad + " sobre 8, realizado en la fecha " + fecha + ".";
+    }
 
     /**
      * Calcula las calorías quemadas durante el ejercicio de cardio.
@@ -63,9 +67,13 @@ public class Cardio extends Ejercicio implements Serializable {
         return calorias;
     }
 
+    /**
+     * Obtiene los datos relevantes del ejercicio de cardio para un informe.
+     *
+     * @return una cadena con los datos de la distancia y la duración del ejercicio
+     */
     @Override
     public String getDatosInforme() {
         return distancia+" Km "+duracion+" min.";
     }
 }
-

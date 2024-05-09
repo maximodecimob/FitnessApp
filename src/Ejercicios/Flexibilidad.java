@@ -6,7 +6,6 @@ import Excepciones.NumeroNegativoException;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-
 /**
  * La clase Flexibilidad representa un tipo de ejercicio de estiramiento para mejorar la flexibilidad del cuerpo.
  * Hereda de la clase Ejercicio e incluye atributos específicos como el número de repeticiones.
@@ -23,6 +22,9 @@ public class Flexibilidad extends Ejercicio implements Serializable {
      * @param intensidad la intensidad del ejercicio en una escala del 1 al 8
      * @param fecha la fecha en la que se realizó el ejercicio
      * @param repeticiones el número de repeticiones del ejercicio de flexibilidad
+     * @throws NumeroNegativoException si las repeticiones son un número negativo
+     * @throws ConjuntoVacioException si algún parámetro es nulo o vacío
+     * @throws IntensidadIncorrectaException si la intensidad no está en el rango de 1 a 8
      */
     public Flexibilidad(String nombre, int intensidad, LocalDate fecha, int repeticiones) throws NumeroNegativoException, ConjuntoVacioException, IntensidadIncorrectaException {
         super(nombre, intensidad, fecha);
@@ -64,6 +66,11 @@ public class Flexibilidad extends Ejercicio implements Serializable {
         return calorias;
     }
 
+    /**
+     * Obtiene los datos del ejercicio para un informe.
+     *
+     * @return una cadena que describe el número de repeticiones del ejercicio
+     */
     @Override
     public String getDatosInforme() {
         if (repeticiones == 1) {
