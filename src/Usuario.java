@@ -36,6 +36,8 @@ public class Usuario implements Serializable {
      * @param edad la edad del usuario
      * @param peso el peso del usuario, en kilogramos
      * @param nivel el nivel de actividad del usuario
+     * @throws ConjuntoVacioException si el nombre o el nivel es nulo o vacío
+     * @throws NumeroNegativoException si la edad o el peso son negativos
      */
     public Usuario(String nombre, int edad, double peso, Nivel nivel) throws ConjuntoVacioException, NumeroNegativoException {
         if(nivel == null || Objects.equals(nombre, "")){

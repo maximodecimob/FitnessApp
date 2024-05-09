@@ -2,6 +2,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
+
 /**
  * La clase RegistroUsuarios gestiona un registro de usuarios.
  * Permite agregar, buscar y modificar usuarios en el registro.
@@ -11,6 +12,11 @@ public class RegistroUsuarios implements Serializable {
     /** La lista de usuarios registrados. */
     private ArrayList<Usuario> usuarios;
 
+    /**
+     * Obtiene la lista de usuarios registrados.
+     *
+     * @return la lista de usuarios registrados
+     */
     public ArrayList<Usuario> getUsuarios() {
         return usuarios;
     }
@@ -69,4 +75,3 @@ public class RegistroUsuarios implements Serializable {
         }
     }
 }
-

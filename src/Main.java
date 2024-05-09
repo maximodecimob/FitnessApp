@@ -13,9 +13,19 @@ Eduardo Estefanía Ovejero
 Fecha de finalización: 09/05/2024
  */
 
+/**
+ * La clase Main contiene el método principal para ejecutar el programa.
+ * Llama al método `menuGeneral()` de la clase ProgramaPrincipal para iniciar la aplicación.
+ */
 public class Main {
+
+    /**
+     * El método principal para ejecutar el programa.
+     * Llama al método `menuGeneral()` de la clase ProgramaPrincipal para iniciar la aplicación.
+     *
+     * @param args los argumentos de línea de comandos (no se utilizan en este programa)
+     */
     public static void main(String[] args) {
         ProgramaPrincipal.menuGeneral();
     }
-
 }

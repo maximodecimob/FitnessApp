@@ -17,7 +17,7 @@ public class ProgramaPrincipal {
      * Muestra el menú general de FitnessApp.
      * Permite al usuario registrar un nuevo usuario, iniciar sesión o salir del programa.
      */
-    public static void menuGeneral(){
+    public static void menuGeneral() {
         int menu;
         boolean fitnessApp = true, primera = true;
         RegistroUsuarios registroUsuarios = new RegistroUsuarios();
@@ -49,7 +49,7 @@ public class ProgramaPrincipal {
      * @param registroUsuarios el registro de usuarios de FitnessApp
      * @return el registro de usuarios actualizado
      */
-    private static RegistroUsuarios switchMenu(int menu, RegistroUsuarios registroUsuarios)  {
+    private static RegistroUsuarios switchMenu(int menu, RegistroUsuarios registroUsuarios) {
         switch (menu) {
             case (1):
                 registrarse(registroUsuarios);
@@ -73,6 +73,11 @@ public class ProgramaPrincipal {
         return registroUsuarios;
     }
 
+    /**
+     * Genera un informe general de todos los usuarios y lo guarda en un archivo.
+     *
+     * @param registroUsuarios el registro de usuarios de FitnessApp
+     */
     private static void generarInformeGeneral(RegistroUsuarios registroUsuarios) {
         try {
             LocalDate fecha = LocalDate.now();
@@ -96,9 +101,13 @@ public class ProgramaPrincipal {
         } catch (FileNotFoundException e) {
             System.out.println("No se ha podido abrir el archivo.");
         }
-
     }
 
+    /**
+     * Lee los datos de los usuarios desde un archivo.
+     *
+     * @return el registro de usuarios leído desde el archivo
+     */
     private static RegistroUsuarios leerDatos() {
         try {
             ObjectInputStream archivo = new ObjectInputStream(new FileInputStream("registroUsuarios.dat"));
@@ -114,6 +123,11 @@ public class ProgramaPrincipal {
         return new RegistroUsuarios();
     }
 
+    /**
+     * Guarda los datos de los usuarios en un archivo.
+     *
+     * @param registroUsuarios el registro de usuarios de FitnessApp
+     */
     private static void guardarDatos(RegistroUsuarios registroUsuarios) {
         try {
             FileOutputStream file = new FileOutputStream("registroUsuarios.dat");
@@ -124,7 +138,6 @@ public class ProgramaPrincipal {
         } catch (IOException var4) {
             System.out.println("No se ha podido abrir el archivo para guardar los datos.");
         }
-
     }
 
     /**
@@ -138,7 +151,7 @@ public class ProgramaPrincipal {
         System.out.println("Introduce el nombre: ");
         nombre = PedirDatos.pedirPalabra("el nombre");
         if (Objects.equals(nombre, "")) {
-            System.out.println("Nombre incorrecto, volviendo al menu...");
+            System.out.println("Nombre incorrecto, volviendo al menú...");
             return;
         } else {
             usuario = registroUsuarios.buscarUsuario(nombre);
@@ -161,21 +174,21 @@ public class ProgramaPrincipal {
         try {
             System.out.println("Introduce el nombre: ");
             String nombre = PedirDatos.pedirPalabra("el nombre");
-            if(Objects.equals(nombre, "")){
+            if (Objects.equals(nombre, "")) {
                 return;
             }
             System.out.println("Introduce el peso en kilogramos: ");
             double peso = PedirDatos.pedirNumeroDoubleMin(0);
-            if(peso<=0){
+            if (peso <= 0) {
                 return;
             }
             System.out.println("Introduce la edad: ");
             int edad = PedirDatos.pedirNumeroIntMin(0);
-            if(edad<=0){
+            if (edad <= 0) {
                 return;
             }
             Nivel nivel = PedirDatos.seleccionarNivel();
-            if(nivel==null){
+            if (nivel == null) {
                 return;
             }
 
@@ -186,9 +199,8 @@ public class ProgramaPrincipal {
 
         } catch (ConjuntoVacioException e) {
             System.out.println("Has introducido un nombre vacío. \nVolviendo al menú...");
-        } catch(NumeroNegativoException e) {
+        } catch (NumeroNegativoException e) {
             System.out.println("Has introducido un valor negativo. \nVolviendo al menú...");
         }
     }
 }
-

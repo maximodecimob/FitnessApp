@@ -22,7 +22,7 @@ public class PedirDatos {
                 System.out.print("Introduzca un número mayor que " + min);
             }
         } catch (Exception ex) {
-            System.out.print("El numero introducido no es correcto o no es un número");
+            System.out.print("El número introducido no es correcto o no es un número");
             teclado.nextLine();
             num = -1;
         }
@@ -32,11 +32,12 @@ public class PedirDatos {
     /**
      * Solicita al usuario un número entero dentro de un rango específico.
      *
-     * @param min el valor mínimo permitido
-     * @param max el valor máximo permitido
+     * @param min   el valor mínimo permitido
+     * @param max   el valor máximo permitido
+     * @param menu  true si se muestra un menú con el rango permitido, false si solo se muestra un mensaje de error
      * @return el número entero ingresado por el usuario
      */
-    public static int pedirNumeroIntMaxMin(int min, int max,boolean menu){
+    public static int pedirNumeroIntMaxMin(int min, int max, boolean menu) {
         Scanner teclado = new Scanner(System.in);
         int num = -10; // Inicializamos a -10 porque nunca le vamos a dar -10 como mínimo o máximo
         try {
@@ -56,7 +57,6 @@ public class PedirDatos {
             System.out.println("Número inválido.");
         }
         return num;
-
     }
 
     /**
@@ -68,16 +68,16 @@ public class PedirDatos {
     public static double pedirNumeroDoubleMin(int min) {
         Scanner teclado = new Scanner(System.in);
         double num;
-            try {
-                num = teclado.nextDouble();
-                if (num < min) {
-                    System.out.print("Introduzca un número mayor que " + min + " ");
-                }
-            } catch (Exception ex) {
-                System.out.print("Error: Debe introducir un numero mayor que " + min + " ");
-                teclado.nextLine();
-                num = - 1;
+        try {
+            num = teclado.nextDouble();
+            if (num < min) {
+                System.out.print("Introduzca un número mayor que " + min + " ");
             }
+        } catch (Exception ex) {
+            System.out.print("Error: Debe introducir un número mayor que " + min + " ");
+            teclado.nextLine();
+            num = -1;
+        }
         return num;
     }
 
@@ -90,17 +90,17 @@ public class PedirDatos {
     public static String pedirPalabra(String peticion) {
         Scanner teclado = new Scanner(System.in);
         String palabra;
-            try {
-                palabra = teclado.nextLine();
-                if (esNumero(palabra) || contieneCaracteresEspeciales(palabra)) {
-                    System.out.println(peticion + " no puede contener números ni caracteres especiales. Tampoco puede estar vacío");
-                    palabra = ""; // Restablecer la palabra para volver a solicitarla
-                }
-            } catch (Exception ex) {
-                System.out.print("Introduzca " + peticion);
-                teclado.nextLine();
-                palabra = "";
+        try {
+            palabra = teclado.nextLine();
+            if (esNumero(palabra) || contieneCaracteresEspeciales(palabra)) {
+                System.out.println(peticion + " no puede contener números ni caracteres especiales. Tampoco puede estar vacío");
+                palabra = ""; // Restablecer la palabra para volver a solicitarla
             }
+        } catch (Exception ex) {
+            System.out.print("Introduzca " + peticion);
+            teclado.nextLine();
+            palabra = "";
+        }
         return palabra;
     }
 
@@ -143,13 +143,13 @@ public class PedirDatos {
 
         System.out.println("Por favor, ingresa tu nivel (PRINCIPIANTE, INTERMEDIO o AVANZADO): ");
         Nivel nivel;
-            try {
-                String nivelStr = teclado.nextLine().toUpperCase();
-                nivel = Nivel.valueOf(nivelStr);
-            } catch (Exception e) {
-                System.out.println("Nivel inválido. No es ninguno de los siguientes niveles: PRINCIPIANTE, INTERMEDIO o AVANZADO. ");
-                nivel = null;
-            }
+        try {
+            String nivelStr = teclado.nextLine().toUpperCase();
+            nivel = Nivel.valueOf(nivelStr);
+        } catch (Exception e) {
+            System.out.println("Nivel inválido. No es ninguno de los siguientes niveles: PRINCIPIANTE, INTERMEDIO o AVANZADO. ");
+            nivel = null;
+        }
         return nivel;
     }
 
@@ -168,11 +168,11 @@ public class PedirDatos {
             String input = teclado.nextLine();
             fecha = LocalDate.parse(input);
             if (!fecha.isAfter(fechaMinima) || (!fecha.isBefore(fechaActual) && !fecha.isEqual(fechaActual))) {
-                System.out.println("La fecha no esta entre el año 2000 y hoy inclusive. ");
+                System.out.println("La fecha no está entre el año 2000 y hoy inclusive. ");
                 fecha = null;
             }
         } catch (Exception ex) {
-            System.out.println("Fecha invalida en el formato especificado. ");
+            System.out.println("Fecha inválida en el formato especificado. ");
             fecha = null;
         }
         return fecha;
@@ -189,19 +189,19 @@ public class PedirDatos {
         YearMonth yearMonth;
         LocalDate fechaMinima = LocalDate.of(2000, 1, 1);
         LocalDate fechaActual = LocalDate.now();
-            try {
-                System.out.print("Ingrese el mes y el año (formato AAAA-MM): ");
-                String input = teclado.nextLine();
-                yearMonth = YearMonth.parse(input);
-                fecha = yearMonth.atDay(1);
-                if (!fecha.isAfter(fechaMinima) || (!fecha.isBefore(fechaActual) && !fecha.isEqual(fechaActual))) {
-                    System.out.println("El mes y año no están entre el año 2000 y el mes y año actual inclusive. ");
-                    yearMonth = null;
-                }
-            } catch (Exception ex) {
-                System.out.println("Ingrese un mes y año válidos en el formato especificado. ");
+        try {
+            System.out.print("Ingrese el mes y el año (formato AAAA-MM): ");
+            String input = teclado.nextLine();
+            yearMonth = YearMonth.parse(input);
+            fecha = yearMonth.atDay(1);
+            if (!fecha.isAfter(fechaMinima) || (!fecha.isBefore(fechaActual) && !fecha.isEqual(fechaActual))) {
+                System.out.println("El mes y año no están entre el año 2000 y el mes y año actual inclusive. ");
                 yearMonth = null;
             }
+        } catch (Exception ex) {
+            System.out.println("Ingrese un mes y año válidos en el formato especificado. ");
+            yearMonth = null;
+        }
         return yearMonth;
     }
 }
